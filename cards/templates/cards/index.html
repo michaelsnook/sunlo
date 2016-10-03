@@ -18,7 +18,7 @@
   <div>
     {% for language in languages %}
     <a class="btn btn-outline-primary" href="{% url 'language_detail' language.id %}">{{ language.name }}
-      <span class="tag tag-pill tag-default">{{ language.card_set.count }}</span>
+      <span class="tag tag-pill tag-default">{{ language.card_set.count }}, {{ language.cardtranslation_set.count }}</span>
     </a>
     {% endfor %}
   </div>

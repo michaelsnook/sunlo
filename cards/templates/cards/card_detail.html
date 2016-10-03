@@ -1,20 +1,36 @@
 {% extends 'cards/base.html' %}
 {% block content %}
+<h1 class="m-x-2">Level 1 cards</h1>
 <section class="card">
-  <div class="blockquote">
-    <h4>{{ card.language.name }}</h4>
-    <h1>{{ card.text }}</h1>
+  <div class="row">
+    <div class="col-md-6">
+      <h4 class="">{{ card.language.name }}</h4>
+      <div class="blockquote m-y-2">
+        <h1>{{ card.text }}</h1>
+      </div>
+
+      <h4 class="">English, French</h4>
+      <div class="blockquote m-y-2">
+        {% for phrase in card.cardtranslation_set.all %}
+        <h3 class="text-muted"><em>&ldquo;{{ phrase.text }}&rdquo;</em></h3>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="col-md-6 text-xs-right">
+
+        <h4>Related</h4>
+        <div class="">
+          {% for phrase in card.see_also.all %}
+          <h3><a href="{% url 'card_detail' card.id %}">{{ phrase.text }}</a></h3>
+          {% endfor %}
+        </div>
+
+    </div>
   </div>
-  <div class="blockquote-reverse">
-    <h4>English</h4>
-    {% for phrase in card.cardtranslation_set.all %}
-    <h2>{{ phrase.text }}</h2>
-    {% endfor %}
+  <div class="text-xs-center m-y-2">
+    <button class="m-x-2 p-x-3 p-y-2 btn btn-swiping btn-secondary btn-lg">Skip</button>
+    <button class="m-x-2 p-x-3 p-y-2 btn btn-swiping btn-success btn-lg">Learn</button>
   </div>
-  <div class="blockquote">
-    <h4>Related</h4>
-    {% for card in card.see_also.all %}
-      <h3><a href="{% url 'card_detail' card.id %}">{{ card.text }}</a></h3>
-    {% endfor %}
 </section>
 {% endblock %}
