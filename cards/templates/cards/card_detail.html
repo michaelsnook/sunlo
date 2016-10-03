@@ -1,0 +1,20 @@
+{% extends 'cards/base.html' %}
+{% block content %}
+<section class="card">
+  <div class="blockquote">
+    <h4>{{ card.language.name }}</h4>
+    <h1>{{ card.text }}</h1>
+  </div>
+  <div class="blockquote-reverse">
+    <h4>English</h4>
+    {% for phrase in card.cardtranslation_set.all %}
+    <h2>{{ phrase.text }}</h2>
+    {% endfor %}
+  </div>
+  <div class="blockquote">
+    <h4>Related</h4>
+    {% for card in card.see_also.all %}
+      <h3><a href="{% url 'card_detail' card.id %}">{{ card.text }}</a></h3>
+    {% endfor %}
+</section>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'cards/base.html' %}
+{% block content %}
+
+<section class="card" id="decks">
+  <h2>Decks</h2>
+  <div>
+    {% for deck in decks %}
+    <a class="btn btn-outline-primary" href="{% url 'deck_detail' deck.id %}">
+      {{ deck.person.name }}, {{ deck.language.code }}
+      <span class="tag tag-pill tag-default">{{ deck.cards.count }}</span>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="card" id="languages">
+  <h2>Languages</h2>
+  <div>
+    {% for language in languages %}
+    <a class="btn btn-outline-primary" href="{% url 'language_detail' language.id %}">{{ language.name }}
+      <span class="tag tag-pill tag-default">{{ language.card_set.count }}</span>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="card" id="cards">
+  <h2>Cards</h2>
+  <ul class="list-unstyled">
+    {% for card in cards %}
+    <li>
+      <a href="{% url 'card_detail' card.id %}">{{ card.text }}
+        <span class="tag tag-pill tag-default">{{ language.card_set.count }}</span>
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endblock %}
