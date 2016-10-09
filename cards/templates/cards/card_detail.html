@@ -22,7 +22,7 @@
         <h4>Related</h4>
         <div class="">
           {% for phrase in card.see_also.all %}
-          <h3><a href="{% url 'card_detail' card.id %}">{{ phrase.text }}</a></h3>
+          <h3><a href="{% url 'card_detail' phrase.id %}">{{ phrase.text }}</a></h3>
           {% endfor %}
         </div>
 
