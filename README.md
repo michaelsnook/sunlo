@@ -9,20 +9,25 @@ first useful phrase I learned in Hindi "Sunlo iski baht", which I used to say,
 1. Clone this repository
 1. Set up a postgres database called `sunlo` or use sqlite
 1. Set up a virtual environment and `pip install -r 'requirements.txt.'`
-1. `./manage.py migrate` to set up the database
-1. `./manage.py createsuperuser` to set up your admin user
-1. `./manage.py collectstatic` to prepare static assets
-1. `./manage.py loaddata cards/seed.json` to seed the database
-1. `./manage.py runserver` to run the server
+1. Set up the database and static files with
+```bash
+./manage.py migrate \
+  && ./manage.py createsuperuser \
+  && ./manage.py collectstatic \
+  && ./manage.py loaddata cards/seed.json
+```
+1. Run your dev server with `./manage.py runserver`
 
 ## Run on Heroku
 1. Run locally, install heroku toolbelt
 1. Create your heroku app, provision your db, and `git push heroku`
 1. Run the same setup steps on your heroku machine as you did on local:
-    heroku run ./manage.py migrate \
-      && ./manage.py createsuperuser \
-      && ./manage.py collectstatic \
-      && ./manage.py loaddata cards/seed.json
+```bash
+heroku run ./manage.py migrate \
+  && ./manage.py createsuperuser \
+  && ./manage.py collectstatic \
+  && ./manage.py loaddata cards/seed.json
+```
 1. For local development, copy or rename `.env.example` to `.env` for the option
 to run with `foreman start` or `heroku local`
 
