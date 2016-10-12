@@ -1,13 +1,10 @@
 header, footer, main {
   margin-left: auto;
   margin-right: auto;
-}
-main {
-  border-radius: 10px;
   max-width: 800px;
   width: 80%;
-  margin-top: 3rem;
-  margin-bottom: 3rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 section {
   margin-top: 2rem;
@@ -33,4 +30,8 @@ header {
 }
 .btn .tag {
   right: -3px;
+}
+.alert {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
