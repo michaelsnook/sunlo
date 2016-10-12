@@ -15,7 +15,7 @@
 
     <ul class="list-unstyled">
       {% for phrase in language.cardtranslation_set.all %}
-      <li><a href="{% url 'card_detail' phrase.id %}">{{ phrase.text }}</a></li>
+      <li><a href="{% url 'card_detail' phrase.card.id %}">{{ phrase.text }}</a></li>
       {% endfor %}
     </ul>
 
