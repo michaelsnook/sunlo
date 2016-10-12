@@ -1,1 +1,1 @@
-web: gunicorn phrasebook.wsgi --log-file -
+web: gunicorn sunlo.wsgi --log-file -

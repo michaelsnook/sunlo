@@ -1,5 +1,5 @@
 """
-WSGI config for phrasebook project.
+WSGI config for sunlo project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -13,7 +13,7 @@ from django.core.wsgi import get_wsgi_application
 from whitenoise.django import DjangoWhiteNoise
 
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "phrasebook.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "sunlo.settings")
 
 application = get_wsgi_application()
 application = DjangoWhiteNoise(application)

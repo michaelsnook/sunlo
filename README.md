@@ -1,13 +1,13 @@
 # Sunlo
 Language learning with friends.
-A user-generated, individually-curated phrasebook to learn a language starting
+A user-generated, individually-curated phrase book to learn a language starting
 from the most useful phrases, for you and your social circle. Named for the
 first useful phrase I learned in Hindi "Sunlo iski baht", which I used to say,
 "I don't understand your question, but my friend will answer you."
 
 ## Run Locally
 1. Clone this repository
-1. Set up a postgres database called `phrasebook` or use sqlite
+1. Set up a postgres database called `sunlo` or use sqlite
 1. Set up a virtual environment and `pip install -r 'requirements.txt.'`
 1. `./manage.py migrate` to set up the database
 1. `./manage.py createsuperuser` to set up your admin user
