@@ -25,3 +25,15 @@ first useful phrase I learned in Hindi "Sunlo iski baht", which I used to say,
       && ./manage.py loaddata cards/seed.json
 1. For local development, copy or rename `.env.example` to `.env` for the option
 to run with `foreman start` or `heroku local`
+
+## Roadmap
+1. Add Users with public signup
+1. Build view to add a new card
+1. Build view to add new translation
+1. Middleware to remember user settings on each page and associate that with
+a specific Deck in the database
+1. Create a new Deck, only one per language per user, and add cards to it
+1. Build "Levels" interface where you peruse a set of cards with the same
+difficulty rating
+1. Build Levels overview page where you see how much of each level's cards
+you've taken into your deck, learned, or skipped
