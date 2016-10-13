@@ -1,0 +1,34 @@
+{% extends 'cards/base.html' %}
+{% block content %}
+
+<section class="card">
+  <p>This is your home screen, {{ person.first_name }}.</p>
+  <p>You're learning
+    {% for language in person.studying_languages.all %}
+      {% if forloop.first and forloop.last %}{{ language }}
+      {% else %}
+        {% if not forloop.last %}
+          ,
+        {% else %}
+          and
+        {% endif %}
+        {{ language }}
+      {% endif %}
+    {% endfor %}.
+  </p>
+  <p>You speak
+    {% for language in person.speaks_languages.all %}
+      {% if forloop.first and forloop.last %}{{ language }}
+      {% else %}
+        {% if not forloop.last %}
+          ,
+        {% else %}
+          and
+        {% endif %}
+        {{ language }}
+      {% endif %}
+    {% endfor %}.
+  </p>
+
+</section>
+{% endblock %}

@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Language(models.Model):
@@ -33,18 +34,25 @@ class CardTranslation(models.Model):
 
 
 class Person(models.Model):
-    # tie this into session middleware...
-    name = models.CharField(max_length=200)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     facebook_name = models.CharField(max_length=200, blank=True)
-    email = models.EmailField(blank=True)
-    languages = models.ManyToManyField(Language)
+    studying_languages = models.ManyToManyField(Language, related_name='students')
+    speaks_languages = models.ManyToManyField(Language, related_name='speakers')
 
-    # learning = models.ManyToManyField(Language)
-    # understands = models.ManyToManyField(Language)
-    # teaches = models.ManyToManyField(Language)
+    def first_name(self):
+        return self.user.first_name
+        
+    def username(self):
+        return self.user.username
+
+    def name(self):
+        return (self.user.first_name + ' ' + self.user.last_name) or self.username()
+
+    def email(self):
+        return self.user.email
 
     def __str__(self):
-        return self.name
+        return self.name() or self.username()
 
 
 class Deck(models.Model):
@@ -53,8 +61,8 @@ class Deck(models.Model):
     language = models.ForeignKey(Language, blank=True)
     cards = models.ManyToManyField(Card, blank=True)
 
-    #def languages(self):
-    #    return self.person.languages
+    def translation_languages(self):
+        return self.person.knows
 
     def __str__(self):
         return self.person.name

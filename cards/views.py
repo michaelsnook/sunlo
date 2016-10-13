@@ -1,7 +1,8 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponse
-from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.conf import settings
 
 from .models import Card, Deck, Language, Person, CardTranslation
@@ -13,6 +14,11 @@ def index(request):
         'cards': Card.objects.all(),
     }
     return render(request, 'cards/index.html', context)
+
+@login_required
+def home(request):
+    context = { 'person' : request.user.person, }
+    return render(request, 'cards/home.html', context)
 
 def login_page(request):
     if request.method == 'POST':
