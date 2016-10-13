@@ -41,12 +41,12 @@ class Person(models.Model):
 
     def first_name(self):
         return self.user.first_name
-        
+
     def username(self):
         return self.user.username
 
     def name(self):
-        return (self.user.first_name + ' ' + self.user.last_name) or self.username()
+        return self.user.first_name + ' ' + self.user.last_name if self.user.first_name else self.username()
 
     def email(self):
         return self.user.email
