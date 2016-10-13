@@ -65,7 +65,7 @@ class Deck(models.Model):
         return self.person.knows
 
     def __str__(self):
-        return self.person.name
+        return self.person.name() + ', ' + self.language.code
 
 """
 class SuggestionStatus(models.Model):
