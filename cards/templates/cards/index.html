@@ -6,7 +6,7 @@
   <div>
     {% for deck in decks %}
     <a class="btn btn-outline-primary" href="{% url 'deck_detail' deck.id %}">
-      {{ deck.person.name }}, {{ deck.language.code }}
+      {{ deck }}
       <span class="tag tag-pill tag-default">{{ deck.cards.count }}</span>
     </a>
     {% endfor %}

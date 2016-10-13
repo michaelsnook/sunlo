@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.text import capfirst
 
 
 class Language(models.Model):
@@ -39,8 +40,8 @@ class Person(models.Model):
     studying_languages = models.ManyToManyField(Language, related_name='students')
     speaks_languages = models.ManyToManyField(Language, related_name='speakers')
 
-    def first_name(self):
-        return self.user.first_name
+    def salutation(self):
+        return self.user.first_name or self.user.username
 
     def username(self):
         return self.user.username
@@ -65,7 +66,7 @@ class Deck(models.Model):
         return self.person.knows
 
     def __str__(self):
-        return self.person.name() + ', ' + self.language.code
+        return capfirst(self.person.name()) + ', ' + self.language.code
 
 """
 class SuggestionStatus(models.Model):
