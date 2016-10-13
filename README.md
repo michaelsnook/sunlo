@@ -32,7 +32,12 @@ heroku run ./manage.py migrate \
 to run with `foreman start` or `heroku local`
 
 ## Roadmap
-1. Add Users with public signup
+1. [1/4] Add Users with public signup and forgot password link
+  * [done] user login / logout
+  * [todo] create user
+  * [todo] reset password
+  * [todo] forgot password
+1. [done] Support SCSS for styles
 1. Build view to add a new card
 1. Build view to add new translation
 1. Middleware to remember user settings on each page and associate that with
