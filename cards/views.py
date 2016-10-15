@@ -75,7 +75,7 @@ def my_deck(request, deck_language_name):
             )
         except ObjectDoesNotExist:
             # TODO: make this create statement work
-            deck = Deck.objects.create()
+            deck = Deck.objects.create(person=person, language=language, )
             if deck is not None:
                 messages.success(request, 'Successfully created your new deck!')
 

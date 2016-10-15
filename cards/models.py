@@ -59,7 +59,7 @@ class Person(models.Model):
 class Deck(models.Model):
     # one person owns one or more decks
     person = models.ForeignKey(Person)
-    language = models.ForeignKey(Language, blank=True)
+    language = models.ForeignKey(Language)
     cards = models.ManyToManyField(Card, blank=True)
 
     def translation_languages(self):
