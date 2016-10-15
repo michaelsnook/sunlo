@@ -3,11 +3,20 @@
 
 <section class="card">
   <p>This is your home screen, {{ person.salutation|capfirst }}.</p>
-  <p>You're learning
+
+  {% for language in person.studying_languages.all %}
+  <a class="card" href="/deck/{{ language.name|lower }}">
+    {{ language.name }}, XX cards
+  </a>
+  {% endfor %}
+
+  <!--p>You're learning
     {% for language in person.studying_languages.all %}{% if forloop.first and forloop.last %}{{ language }}.{% elif forloop.last %} and {{ language }}.{% elif forloop.first %}{{ language }}{% else %}, {{ language }}{% endif %}{% endfor %}
   </p>
   <p>You speak
     {% for language in person.speaks_languages.all %}{% if forloop.first and forloop.last %}{{ language }}.{% elif forloop.last %} and {{ language }}.{% elif forloop.first %}{{ language }}{% else %}, {{ language }}{% endif %}{% endfor %}
-  </p>
+  </p-->
+
+
 </section>
 {% endblock %}

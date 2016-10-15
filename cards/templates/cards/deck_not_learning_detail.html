@@ -1,0 +1,21 @@
+{% extends 'cards/base.html' %}
+{% block content %}
+
+<section class="card text-xs-center">
+  {% if language in person.speaks_languages.all %}
+  <p>You're silly! You already speak {{ language.name }}. But you could still
+    learn it if you want, I guess.
+  </p>
+  {% else %}
+  <p>You're not currently learning this language. Want to begin?<p>
+  {% endif %}
+  <form method="post">
+    {% csrf_token %}
+    <input type="hidden" name="language_name" value="{{ language.name }}">
+    <button type="submit" class="btn btn-block btn-outline-primary m-b-1" href="">
+      Start learning {{ language.name }}
+    </button>
+  </form>
+</section>
+
+{% endblock %}

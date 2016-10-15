@@ -1,4 +1,5 @@
 from django.shortcuts import get_object_or_404, render, redirect
+from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -58,4 +59,37 @@ def deck_detail(request, deck_id):
     context = {
         'deck': deck,
     }
+    return render(request, 'cards/deck_detail.html', context)
+
+@login_required
+def my_deck(request, deck_language_name):
+    person = request.user.person
+    language = get_object_or_404(Language, name__iexact=deck_language_name)
+    deck = None
+
+    if request.method == 'POST':
+        try:
+            deck = Deck.objects.get(
+                person_id=person.id,
+                language__name__iexact=request.POST['language_name'],
+            )
+        except ObjectDoesNotExist:
+            # TODO: make this create statement work
+            deck = Deck.objects.create()
+            if deck is not None:
+                messages.success(request, 'Successfully created your new deck!')
+
+    context = {
+        'person': request.user.person,
+        'language': language,
+        'deck': deck,
+    }
+
+    if request.method == 'GET':
+        try:
+            context['deck'] = Deck.objects.get(person_id=person.id, language__name__iexact=deck_language_name)
+        except ObjectDoesNotExist:
+            return render(request, 'cards/deck_not_learning_detail.html', context)
+
+
     return render(request, 'cards/deck_detail.html', context)
