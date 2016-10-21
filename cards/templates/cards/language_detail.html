@@ -2,7 +2,7 @@
 {% block content %}
 <section class="card">
   <h1>{{ language.name }}</h1>
-  <div class="com-md-6">
+  <div class="col-md-6">
     <h4>{{ language.card_set.count }} cards</h4>
     <ul class="list-unstyled">
       {% for card in language.card_set.all %}
@@ -10,7 +10,7 @@
       {% endfor %}
     </ul>
   </div>
-  <div class="com-md-6">
+  <div class="col-md-6">
     <h4>{{ language.cardtranslation_set.count }} translations</h4>
 
     <ul class="list-unstyled">
