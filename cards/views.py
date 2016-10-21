@@ -16,11 +16,6 @@ def index(request):
     }
     return render(request, 'cards/index.html', context)
 
-@login_required
-def home(request):
-    context = { 'person' : request.user.person, }
-    return render(request, 'cards/home.html', context)
-
 def login_page(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -54,12 +49,20 @@ def language_detail(request, language_id):
     }
     return render(request, 'cards/language_detail.html', context)
 
+@login_required
+def home(request):
+    context = { 'person' : request.user.person, }
+    return render(request, 'cards/home.html', context)
+
+@login_required
 def deck_detail(request, deck_id):
-    deck = get_object_or_404(Deck, pk=deck_id)
+    deck = get_object_or_404(Deck, pk=deck_id, person=request.user.person)
     context = {
         'deck': deck,
     }
     return render(request, 'cards/deck_detail.html', context)
+
+
 
 @login_required
 def my_deck(request, deck_language_name):
