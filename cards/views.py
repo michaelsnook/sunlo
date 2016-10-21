@@ -63,6 +63,37 @@ def deck_detail(request, deck_id):
     return render(request, 'cards/deck_detail.html', context)
 
 
+@login_required
+def deck_add(request):
+
+    if request.method == 'POST':
+        language_name = request.POST['language_name']
+        language = get_object_or_404(Language, name__iexact=language_name)
+        deck = None
+
+        try:
+            deck = Deck.objects.get(
+                person_id=request.user.person.id,
+                language__name__iexact=language_name,
+            )
+        except ObjectDoesNotExist:
+            # TODO: make this create statement work
+            deck = Deck.objects.create(person=request.user.person, language=language, )
+            if deck is not None:
+                messages.success(request, 'Successfully created your new deck!')
+                return redirect('/deck/%s' % deck.language.name )
+        return redirect('/deck/%s' % deck.language.name )
+
+    if request.method == 'GET':
+        context = {
+            'languages': Language.objects.all(),
+        }
+        return render(request, 'cards/deck_add.html', context)
+
+
+@login_required
+def card_add(request):
+    return render(request, 'cards/card_add.html', {})
 
 @login_required
 def my_deck(request, deck_language_name):
