@@ -1,6 +1,7 @@
 {% extends 'cards/base.html' %}
 {% block content %}
 <section class="card">
+  <h2>Add a new card to one of your decks</h2>
   <form class="form" method="post" role="form">
     {% csrf_token %}
 
@@ -33,11 +34,11 @@
 
     <div class="row">
       <div class="col-sm-6">
-        <input type="submit" class="btn btn-block btn-outline-primary m-b-1"
+        <input type="submit" class="btn btn-block btn-primary m-b-1"
         name="submit" value="Save card">
       </div>
       <div class="col-sm-6">
-        <input type="submit" class="btn btn-block btn-outline-primary m-b-1"
+        <input type="submit" class="btn btn-block btn-primary m-b-1"
         name="submit" value="Save and add another">
       </div>
     </div>

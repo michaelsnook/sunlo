@@ -1,16 +1,19 @@
 {% extends 'cards/base.html' %}
 {% block content %}
-<form id="form-add-deck" class="form" method="post" role="form">
-  {% csrf_token %}
-  <select class="form-control m-b-1" name="language_name">
-    <option value="">-- select language --</option>
-    {% for language in languages %}
-    <option value="{{ language.name|lower }}">{{ language.name }}</option>
-    {% endfor %}
-  </select>
+<section class="card">
+  <h2>Start a new language deck?</h2>
+  <form id="form-add-deck" class="form" method="post" role="form">
+    {% csrf_token %}
+    <select class="form-control m-b-1" name="language_name">
+      <option value="">-- select language --</option>
+      {% for language in languages %}
+      <option value="{{ language.name|lower }}">{{ language.name }}</option>
+      {% endfor %}
+    </select>
 
-  <button type="submit" class="btn btn-block btn-outline-primary m-b-1" href="">
-    Get started
-  </button>
-</form>
+    <button type="submit" class="btn btn-block btn-primary m-b-1" href="">
+      Get started
+    </button>
+  </form>
+</section>
 {% endblock %}
