@@ -8,14 +8,6 @@ from django.conf import settings
 
 from .models import Card, Deck, Language, Person, CardTranslation
 
-def index(request):
-    context = {
-        'decks': Deck.objects.all(),
-        'languages': Language.objects.all(),
-        'cards': Card.objects.all(),
-    }
-    return render(request, 'cards/index.html', context)
-
 def login_page(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -127,3 +119,24 @@ def my_deck(request, deck_language_name):
 
 
     return render(request, 'cards/deck_detail.html', context)
+
+
+@login_required
+def index(request):
+    # show user's own decks. if the user is staff, show all decks
+    user = request.user
+    if user.is_staff and user.is_active:
+        decks = Deck.objects.all()
+        people = Person.objects.all()
+    else:
+        decks = Deck.objects.filter(person=user.person)
+        #@TODO add friendships, m2m field on Person
+        people = (user.person,) # should be their friends 
+
+    context = {
+        'decks': decks,
+        'people': people,
+        'languages': Language.objects.all(),
+        'cards': Card.objects.all(),
+    }
+    return render(request, 'cards/index.html', context)
