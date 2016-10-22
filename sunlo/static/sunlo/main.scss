@@ -13,6 +13,14 @@ header, footer, main {
 header {
   text-align: center;
 }
+main {
+  @media screen and (max-width: 767px) {
+    width: 90%;
+  }
+}
+footer { padding-left: 10%; padding-right: 10%;
+  border-top: 1px solid rgba(0, 0, 0, 0.125);
+}
 section {
   margin-top: 2rem;
   margin-bottom: 2rem;
