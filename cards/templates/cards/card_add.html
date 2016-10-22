@@ -1,3 +1,46 @@
 {% extends 'cards/base.html' %}
 {% block content %}
+<section class="card">
+  <form class="form" method="post" role="form">
+    {% csrf_token %}
+
+    <label>Add to deck</label>
+    <select class="form-control m-b-1" name="language_name">
+      <option value="">-- select deck --</option>
+      {% for deck in person.deck_set.all %}
+      <option value="{{ deck.language_name }}">{{ deck.language_name }}</option>
+      {% endfor %}
+    </select>
+    <div class="form-group">
+      <label>Phrase text</label>
+      <textarea name="card_text" class="form-control"></textarea>
+    </div>
+
+
+    <label>Translation language</label>
+    <select class="form-control m-b-1" name="language_name">
+      <option value="">-- select language --</option>
+      {% for language in person.speaks_languages.all %}
+      <option value="{{ language.name|lower }}">{{ language.name }}</option>
+      {% endfor %}
+    </select>
+    <div class="form-group">
+      <label>Translation text</label>
+      <textarea name="cardtranslation_text" class="form-control"></textarea>
+    </div>
+
+
+
+    <div class="row">
+      <div class="col-sm-6">
+        <input type="submit" class="btn btn-block btn-outline-primary m-b-1"
+        name="submit" value="Save card">
+      </div>
+      <div class="col-sm-6">
+        <input type="submit" class="btn btn-block btn-outline-primary m-b-1"
+        name="submit" value="Save and add another">
+      </div>
+    </div>
+  </form>
+</section>
 {% endblock %}

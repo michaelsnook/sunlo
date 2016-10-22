@@ -51,10 +51,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js" integrity="sha384-VjEeINv9OSwtWFLAtmc4JCtEJXXBub00gtSnszmspDLCtC0I4z4nqz7rEFbIZLLU" crossorigin="anonymous"></script>
 
-  <br>
-  <br>
-  <hr class="m-y-2">
   <footer id="footer" class="m-y-2 p-y-2">
+    <hr class="m-y-2">
     {% if user.is_authenticated %}
     <a href="{% url 'deck_add' %}" class="btn btn-outline-primary">deck <span class="tag tag-pill tag-primary">+</span></a>
     <a href="{% url 'card_add' %}" class="btn btn-outline-primary">card <span class="tag tag-pill tag-primary">+</span></a>

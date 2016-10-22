@@ -85,7 +85,12 @@ def deck_add(request):
 
 @login_required
 def card_add(request):
-    return render(request, 'cards/card_add.html', {})
+    person = request.user.person
+    context = {
+        'person': request.user.person,
+        'languages': Language.objects.all(),
+    }
+    return render(request, 'cards/card_add.html', context)
 
 @login_required
 def my_deck(request, deck_language_name):

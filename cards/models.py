@@ -62,6 +62,9 @@ class Deck(models.Model):
     language = models.ForeignKey(Language)
     cards = models.ManyToManyField(Card, blank=True)
 
+    def language_name(self):
+        return self.language.name
+
     def translation_languages(self):
         return self.person.knows
 
