@@ -29,11 +29,22 @@ def logout_page(request):
 
 def card_detail(request, card_id):
     card = get_object_or_404(Card, pk=card_id)
-    membership = DeckMembership.objects.filter(card=card, deck__person=request.user.person) or None
+    deckmembership = {}
+    deck = {}
+    if request.user.is_authenticated:
+        try:
+            deckmembership = DeckMembership.objects.get(card=card, deck__person=request.user.person)
+        except ObjectDoesNotExist:
+            deckmembership = {}
+        try:
+            deck = Deck.objects.get(language=card.language, person=request.user.person)
+        except ObjectDoesNotExist:
+            deckmembership = {}
 
     context = {
         'card': card,
-        'membership': membership,
+        'deck': deck,
+        'membership': deckmembership,
     }
     return render(request, 'cards/card_detail.html', context)
 
@@ -44,16 +55,25 @@ def membership_update(request, card_id):
     if request.method == 'POST':
         card = get_object_or_404(Card, pk=card_id)
         deck = get_object_or_404(Deck, person=request.user.person, language=card.language)
+
         try:
-            membership = DeckMembership.objects.get(card=card, deck=deck)
+            deckmembership = DeckMembership.objects.get(card=card, deck=deck)
+            deckmembership.status=request.POST['status']
+            deckmembership.save()
+            
         except ObjectDoesNotExist:
-            membership = DeckMembership.objects.create(card=card, deck=deck)
-        membership.status=request.POST['status']
+            deckmembership = DeckMembership.objects.create(
+                card=card,
+                deck=deck,
+                status=request.POST['status']
+            )
+
         context = {
             'card': card,
-            'membership': membership,
+            'membership': deckmembership or {},
+            'card_language_matches_a_deck': True,
         }
-        return render(request, 'cards/card_detail.html', context)
+        return redirect('card_detail', card.id)
 
 def language_detail(request, language_id):
     language = get_object_or_404(Language, pk=language_id)

@@ -95,7 +95,7 @@ class DeckMembership(models.Model):
     status = models.SlugField()
 
     def __str__(self):
-        return self.deck.person.name() + self.card.text
+        return self.deck.person.name() + ' ' + self.status + ' ' + self.card.text
 
 class Suggestion(models.Model):
     suggested_by = models.ForeignKey(Person, on_delete=models.CASCADE)
