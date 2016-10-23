@@ -2,20 +2,28 @@
 {% block content %}
 
 <section class="card">
+
   <h3>Your deck of {{ deck.language.name }} flash cards</h1>
   <h4>{{ deck.cards.count }} cards </h4>
+  <div class="row">
+    <div class="col-sm-4">
+      <a class="btn btn-block btn-outline-primary m-b-1" href="">
+        {{ deck.suggestions.count }} suggestions
+      </a>
+    </div>
+    <div class="col-sm-4">
+      <a class="btn btn-block btn-outline-primary m-b-1" href="">
+        {{ deck.learning_cards.count }} learning
+      </a>
+    </div>
+    <div class="col-sm-4">
+      <a class="btn btn-block btn-outline-primary m-b-1" href="">
+        {{ deck.learned_cards.count }} learned
+      </a>
+    </div>
+  </div>
 
-  <a class="btn btn-block btn-outline-primary m-b-1" href="">
-    Review 6 suggestions
-  </a>
-  <a class="btn btn-block btn-outline-primary m-b-1" href="">
-    Learning 10 cards
-  </a>
-  <a class="btn btn-block btn-outline-primary m-b-1" href="">
-    Learned 15 cards
-  </a>
-
-  <a class="card">
+  {% comment %}<a class="card">
     <div id="example-caption-1">Level 1&hellip; 80%</div>
     <progress class="progress" value="80" max="100" aria-describedby="example-caption-1"></progress>
   </a>
@@ -34,7 +42,7 @@
   <a class="card">
     <div id="example-caption-5">Level 5&hellip; 0%</div>
     <progress class="progress" value="0" max="100" aria-describedby="example-caption-5"></progress>
-  </a>
+  </a>{% endcomment %}
 
   <ul class="list-unstyled">
     {% for card in deck.cards.all %}
