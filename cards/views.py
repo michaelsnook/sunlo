@@ -85,6 +85,20 @@ def deck_add(request):
 
 @login_required
 def card_add(request):
+    if request.method == 'POST':
+        card_language = Language.objects.get(
+            name__iexact=request.POST['card_language_name'])
+        cardtranslation_language = Language.objects.get(
+            name__iexact=request.POST['cardtranslation_language_name'])
+        deck = Deck.objects.get(language=card_language, person=request.user.person)
+
+        card = Card.objects.create(language=card_language, text=request.POST['card_text'])
+        cardtranslation = CardTranslation.objects.create(language=cardtranslation_language, text=request.POST['cardtranslation_text'], card=card)
+        deck.cards.add(card)
+
+        messages.success(request, 'Successfully created your new card!')
+        return redirect('card_detail', card.id)
+
     person = request.user.person
     context = {
         'person': request.user.person,

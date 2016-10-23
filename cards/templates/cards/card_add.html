@@ -6,7 +6,7 @@
     {% csrf_token %}
 
     <label>Add to deck</label>
-    <select class="form-control m-b-1" name="language_name">
+    <select class="form-control m-b-1" name="card_language_name">
       <option value="">-- select deck --</option>
       {% for deck in person.deck_set.all %}
       <option value="{{ deck.language_name }}">{{ deck.language_name }}</option>
@@ -19,10 +19,10 @@
 
 
     <label>Translation language</label>
-    <select class="form-control m-b-1" name="language_name">
+    <select class="form-control m-b-1" name="cardtranslation_language_name">
       <option value="">-- select language --</option>
       {% for language in person.speaks_languages.all %}
-      <option value="{{ language.name|lower }}">{{ language.name }}</option>
+      <option value="{{ language.name }}">{{ language.name }}</option>
       {% endfor %}
     </select>
     <div class="form-group">
