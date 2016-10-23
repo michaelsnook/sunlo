@@ -60,7 +60,7 @@ def membership_update(request, card_id):
             deckmembership = DeckMembership.objects.get(card=card, deck=deck)
             deckmembership.status=request.POST['status']
             deckmembership.save()
-            
+
         except ObjectDoesNotExist:
             deckmembership = DeckMembership.objects.create(
                 card=card,
@@ -77,8 +77,17 @@ def membership_update(request, card_id):
 
 def language_detail(request, language_id):
     language = get_object_or_404(Language, pk=language_id)
+    deck = {}
+
+    if request.user.is_authenticated:
+        try:
+            deck = Deck.objects.get(person=request.user.person, language=language)
+        except ObjectDoesNotExist:
+            pass
+
     context = {
         'language': language,
+        'deck': deck,
     }
     return render(request, 'cards/language_detail.html', context)
 

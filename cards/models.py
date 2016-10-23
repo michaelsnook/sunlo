@@ -62,6 +62,12 @@ class Deck(models.Model):
     language = models.ForeignKey(Language)
     cards = models.ManyToManyField(Card, through='DeckMembership')
 
+    def deck_cards(self):
+        return Card.objects.filter(
+            deck=self,
+            deckmembership__status__in=["learning", "learned"]
+        )
+
     def learning_cards(self):
         return Card.objects.filter(deck=self, deckmembership__status="learning")
 
@@ -73,6 +79,10 @@ class Deck(models.Model):
 
     def suggestions(self):
         return Card.objects.filter(deck=self, deckmembership__status="pending")
+
+    def untouched_cards(self):
+        return Card.objects.filter(language=self.language).exclude(deck=self)
+
 
     #def unseen(self):
     #    return Card.objects.filter(deckmembership__status="unseen")

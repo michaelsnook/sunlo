@@ -16,10 +16,13 @@
   <header id="header">
     <nav class="navbar navbar-dark bg-primary">
       <div class="nav navbar-nav">
-        <a class="nav-item nav-link" href="/">Sunlo</a>
-        <a class="nav-item nav-link" href="/index">Index</a>
+        <a class="nav-item nav-link" href="{% url 'home' %}">Sunlo</a>
+        {% if deck %}
+        <a class="nav-item nav-link" href="{% url 'my_deck' deck.language.name %}">{{ deck.language }}</a>
+        {% endif %}
       </div>
       <div class="nav navbar-nav pull-xs-right">
+        <a class="nav-item nav-link" href="{% url 'index' %}">Index</a>
         {% if user.is_authenticated %}
         <a class="nav-item nav-link" href="{% url 'logout_page' %}">Logout</a>
         {% else %}
