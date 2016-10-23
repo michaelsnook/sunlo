@@ -60,7 +60,22 @@ class Deck(models.Model):
     # one person owns one or more decks
     person = models.ForeignKey(Person)
     language = models.ForeignKey(Language)
-    cards = models.ManyToManyField(Card, blank=True)
+    cards = models.ManyToManyField(Card, through='DeckMembership')
+
+    def learning_cards(self):
+        return Card.objects.filter(deck=self, deckmembership__status="learning")
+
+    def learned_cards(self):
+        return Card.objects.filter(deck=self, deckmembership__status="learned")
+
+    def suggestions(self):
+        return Card.objects.filter(deck=self, deckmembership__status="pending")
+
+    #def unseen(self):
+    #    return Card.objects.filter(deckmembership__status="unseen")
+
+    def memberships(self):
+        return DeckMembership.objects.filter(deck=self)
 
     def language_name(self):
         return self.language.name
@@ -71,17 +86,16 @@ class Deck(models.Model):
     def __str__(self):
         return capfirst(self.person.name()) + ', ' + self.language.code
 
-"""
-class SuggestionStatus(models.Model):
-    name = models.CharField(max_length=50)
+class DeckMembership(models.Model):
+    deck = models.ForeignKey(Deck)
+    card = models.ForeignKey(Card)
+    status = models.SlugField()
+
     def __str__(self):
-        return self.name
+        return self.deck.person.name() + self.card.text
 
 class Suggestion(models.Model):
-    card = models.ForeignKey(Card)
-    deck = models.ForeignKey(Deck)
-    status = models.ForeignKey(SuggestionStatus)
-    suggested_by = models.ForeignKey(Person)
+    suggested_by = models.ForeignKey(Person, on_delete=models.CASCADE)
+    suggestion_comment = models.TextField()
     def __str__(self):
         return self.suggested_by.name + ' suggests a ' + self.deck.language.name + ' for ' + self.deck.person.name
-"""

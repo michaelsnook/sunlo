@@ -2,10 +2,11 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
 
-from .models import Card, CardTranslation, Person, Language, Deck
+from .models import Card, CardTranslation, Person, Language, Deck, DeckMembership
 
 
 admin.site.register(Deck)
+admin.site.register(DeckMembership)
 admin.site.register(Language)
 
 class CardTranslationInline(admin.TabularInline):
