@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 
-from .models import Card, Deck, Language, Person, CardTranslation
+from .models import Card, Deck, Language, Person, CardTranslation, DeckMembership
 
 def login_page(request):
     if request.method == 'POST':
@@ -29,8 +29,15 @@ def logout_page(request):
 
 def card_detail(request, card_id):
     card = get_object_or_404(Card, pk=card_id)
+
+    if request.user.is_authenticated:
+        membership = DeckMembership.objects.get(card=card, deck__person=request.user.person)
+    else:
+        membership = None
+
     context = {
         'card': card,
+        'membership': membership,
     }
     return render(request, 'cards/card_detail.html', context)
 
@@ -93,8 +100,16 @@ def card_add(request):
         deck = Deck.objects.get(language=card_language, person=request.user.person)
 
         card = Card.objects.create(language=card_language, text=request.POST['card_text'])
-        cardtranslation = CardTranslation.objects.create(language=cardtranslation_language, text=request.POST['cardtranslation_text'], card=card)
-        deck.cards.add(card)
+        cardtranslation = CardTranslation.objects.create(
+            language=cardtranslation_language,
+            text=request.POST['cardtranslation_text'],
+            card=card
+        )
+        deckmembership = DeckMembership.objects.create(
+            card=card,
+            deck=deck,
+            status='learning'
+        )
 
         messages.success(request, 'Successfully created your new card!')
         return redirect('card_detail', card.id)

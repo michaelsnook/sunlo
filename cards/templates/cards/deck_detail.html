@@ -44,9 +44,16 @@
     <progress class="progress" value="0" max="100" aria-describedby="example-caption-5"></progress>
   </a>{% endcomment %}
 
+  <h4>Deck's cards</h4>
   <ul class="list-unstyled">
     {% for card in deck.cards.all %}
     <li><a href="{% url 'card_detail' card.id %}">{{ card.text }}</a></li>
+    {% endfor %}
+  </ul>
+  <h4>Deck's memberships</h4>
+  <ul class="list-unstyled">
+    {% for membership in deck.memberships %}
+    <li>{{ membership.status }}: {{ membership.card.text }}</li>
     {% endfor %}
   </ul>
 </section>
