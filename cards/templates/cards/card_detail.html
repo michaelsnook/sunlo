@@ -4,7 +4,7 @@
 <section class="card">
   <div class="row">
     <div class="col-md-12">
-      <h4 class="">{{ card.language.name }}, {{ membership.status }}</h4>
+      <h4 class="">{{ card.language.name }}{% if membership %}, {{ membership.status }}{% endif %}</h4>
       <h1>{{ card.text }}</h1>
 
     </div>
@@ -28,9 +28,12 @@
         </div>
     </div>
   </div>
-  <div class="text-xs-center m-y-2">
-    <button class="p-y-2 btn btn-swiping btn-secondary btn-lg">Skip</button>
-    <button class="p-y-2 btn btn-swiping btn-success btn-lg">Learn</button>
-  </div>
+  <form method="post" class="form" action="{% url 'membership_update' card.id %}">
+    {% csrf_token %}
+    <div class="text-xs-center m-y-2">
+      <button type="submit" name="status" value="rejected" class="p-y-2 btn btn-swiping btn-secondary btn-lg">Skip</button>
+      <button type="submit" name="status" value="learning" class="p-y-2 btn btn-swiping btn-success btn-lg">Learn</button>
+    </div>
+  </form>
 </section>
 {% endblock %}

@@ -68,6 +68,9 @@ class Deck(models.Model):
     def learned_cards(self):
         return Card.objects.filter(deck=self, deckmembership__status="learned")
 
+    def rejected_cards(self):
+        return Card.objects.filter(deck=self, deckmembership__status="rejected")
+
     def suggestions(self):
         return Card.objects.filter(deck=self, deckmembership__status="pending")
 

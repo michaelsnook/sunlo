@@ -29,17 +29,31 @@ def logout_page(request):
 
 def card_detail(request, card_id):
     card = get_object_or_404(Card, pk=card_id)
-
-    if request.user.is_authenticated:
-        membership = DeckMembership.objects.get(card=card, deck__person=request.user.person)
-    else:
-        membership = None
+    membership = DeckMembership.objects.filter(card=card, deck__person=request.user.person) or None
 
     context = {
         'card': card,
         'membership': membership,
     }
     return render(request, 'cards/card_detail.html', context)
+
+@login_required
+def membership_update(request, card_id):
+    if request.method == 'GET':
+        return redirect('card_detail', card_id)
+    if request.method == 'POST':
+        card = get_object_or_404(Card, pk=card_id)
+        deck = get_object_or_404(Deck, person=request.user.person, language=card.language)
+        try:
+            membership = DeckMembership.objects.get(card=card, deck=deck)
+        except ObjectDoesNotExist:
+            membership = DeckMembership.objects.create(card=card, deck=deck)
+        membership.status=request.POST['status']
+        context = {
+            'card': card,
+            'membership': membership,
+        }
+        return render(request, 'cards/card_detail.html', context)
 
 def language_detail(request, language_id):
     language = get_object_or_404(Language, pk=language_id)
