@@ -1,14 +1,15 @@
 {% extends 'cards/base.html' %}
 {% block content %}
-<h1 class="m-x-2">Level 1 cards</h1>
+
 <section class="card">
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-12">
       <h4 class="">{{ card.language.name }}</h4>
-      <div class="blockquote m-y-2">
-        <h1>{{ card.text }}</h1>
-      </div>
-
+      <h1>{{ card.text }}</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
       <h4 class="">English, French</h4>
       <div class="blockquote m-y-2">
         {% for phrase in card.cardtranslation_set.all %}

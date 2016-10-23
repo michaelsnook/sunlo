@@ -28,6 +28,11 @@
       </div>
     </nav>
 
+    {% block header %}{% endblock %}
+
+  </header>
+
+  <main id="main" class="p-y-1">
     {% for message in messages %}
     <div class="alert alert-danger alert-dismissable fade in
         {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">
@@ -38,11 +43,6 @@
     </div>
     {% endfor %}
 
-    {% block header %}{% endblock %}
-
-  </header>
-
-  <main id="main">
     {% block content %}
     {% endblock %}
   </main>

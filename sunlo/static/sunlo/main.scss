@@ -4,29 +4,33 @@ header, footer, main {
   margin-left: auto;
   margin-right: auto;
   max-width: 800px;
-  @media screen and (min-width: 768px) {
-    width: 80%;
-  }
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
 header {
   text-align: center;
 }
-main {
-  @media screen and (max-width: 767px) {
-    width: 90%;
-  }
-}
-footer { padding-left: 10%; padding-right: 10%;
+footer {
   border-top: 1px solid rgba(0, 0, 0, 0.125);
 }
-section {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-}
 @media screen and (max-width: 767px) {
-  header { margin-top: 0; }
+  header {
+    margin-top: 0;
+  }
+  footer, main {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+}
+@media screen and (min-width: 768px) {
+  header, footer, main {
+    width: 80%;
+  }
+}
+
+section {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
 }
 .card {
   padding: 2rem;
@@ -43,7 +47,7 @@ h4 {
   font-size: 1rem;
   color: #888;
 }
-.btn .tag {
+.btn .tag:last-child {
   right: -3px;
 }
 .alert {
