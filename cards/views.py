@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 
-from .models import Card, Deck, Language, Person, CardTranslation, DeckMembership
+from .models import User, Card, Deck, Language, Person, CardTranslation, DeckMembership
 
 def login_page(request):
     if request.method == 'POST':
@@ -24,8 +24,18 @@ def login_page(request):
 
 def logout_page(request):
     logout(request)
-    messages.success(request, 'Logged out')
-    return redirect(settings.LOGIN_URL)
+    return redirect('home')
+
+def user_register(request):
+    if request.method == 'POST':
+        user = User.objects.create_user(request.POST['username'], request.POST['email'], request.POST['password'])
+        person = Person.objects.create(user=user)
+        if user is not None:
+            login(request, user)
+        else:
+            messages.error(request, 'Something went wrong, please try again')
+    return redirect('home')
+
 
 def card_detail(request, card_id):
     card = get_object_or_404(Card, pk=card_id)
