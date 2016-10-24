@@ -1,0 +1,40 @@
+{% extends 'cards/base.html' %}
+{% block header %}{% endblock %}
+
+{% block content %}
+
+<section class="container">
+  <div class="row">
+    <div class="col-md-8 col-sm-6">
+      <h1>Sunlo, is a social language learning app</h1>
+    </div>
+    <div class="login card col-md-4 col-sm-6">
+
+      <form class="login-form" method="post">
+        {% csrf_token %}
+        <h2 class="login-form-heading">Please log in</h2>
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input name="username" type="slug" id="username" class="form-control" placeholder="mzungumichael" required autofocus>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input name="password"  type="password" id="password" class="form-control" placeholder="************" required>
+        </div>
+        <div class="clearfix">
+          <div class="pull-md-left">
+            <label>
+              <input type="checkbox" value="remember-me" checked> Remember me
+            </label>
+          </div>
+          <button class="pull-md-right btn btn-lg btn-primary" type="submit">Sign in</button>
+      </form>
+
+    </div>
+
+  </div>
+</section>
+
+{% endblock %}
+
+{% block footer %}{% endblock %}

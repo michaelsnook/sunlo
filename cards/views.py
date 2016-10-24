@@ -91,10 +91,24 @@ def language_detail(request, language_id):
     }
     return render(request, 'cards/language_detail.html', context)
 
+
 @login_required
-def home(request):
+def app_home(request):
     context = { 'person' : request.user.person, }
     return render(request, 'cards/home.html', context)
+
+def public_splash_page(request):
+    context = { 'languages' : Language.objects.all(), }
+    return render(request, 'cards/splash.html', context)
+
+def home(request):
+    if request.method == 'POST':
+        return login_page(request)
+
+    if request.user.is_authenticated:
+        return app_home(request)
+
+    return public_splash_page(request)
 
 @login_required
 def deck_detail(request, deck_id):
