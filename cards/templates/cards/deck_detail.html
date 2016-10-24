@@ -2,9 +2,16 @@
 {% block content %}
 
 <section class="card">
+  <div class="row m-b-1">
+    <div class="col-sm-9">
+      <h3>Your deck of {{ deck.language.name }} flash cards</h1>
+      <h4>{{ deck.deck_cards.count }} cards </h4>
+    </div>
+    <div class="col-sm-3">
+      <a href="{% url 'card_add' %}" class="pull-sm-right btn btn-outline-primary">card <span class="tag tag-pill tag-primary">+</span></a>
+    </div>
 
-  <h3>Your deck of {{ deck.language.name }} flash cards</h1>
-  <h4>{{ deck.deck_cards.count }} cards </h4>
+  </div>
   <div class="row">
     <div class="col-sm-12">
       <ul class="nav nav-tabs">
