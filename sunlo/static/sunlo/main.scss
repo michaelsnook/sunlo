@@ -54,3 +54,25 @@ h4 {
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
+.jumbotron {
+  background-color: #025aa5;
+  .inverted {
+    h1, p {
+      color: white;
+    }
+    a {
+      color: rgba(255,255,255,0.7);
+      &:hover, &:visited, &:active, &:focus {
+        color: rgba(255,255,255,1);
+      }
+    }
+  }
+  .card { min-height: 426px; }
+}
+.nav-pills-two {
+  .nav-item {
+    width: 49%;
+    text-align: center;
+  }
+}
