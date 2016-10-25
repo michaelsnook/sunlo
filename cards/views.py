@@ -32,6 +32,8 @@ def user_register(request):
         person = Person.objects.create(user=user)
         if user is not None:
             login(request, user)
+            messages.success('Congratulations on creating your account!')
+            return redirect('user_profile')
         else:
             messages.error(request, 'Something went wrong, please try again')
     return redirect('home')
@@ -180,6 +182,18 @@ def card_add(request):
 
     context = {}
     return render(request, 'cards/card_add.html', context)
+
+@login_required
+def user_profile(request):
+    if request.method == 'POST':
+        person = request.user.person
+        set_languages = request.POST.getlist('set_languages')
+        # for name in set_languages:
+        #    use the language name to grab the language and create a thing
+        # person.speaks_languages = language_results
+        messages.success(request, 'Account information changed')
+
+    return render(request, 'cards/user_profile.html', {})
 
 @login_required
 def my_deck(request, deck_language_name):

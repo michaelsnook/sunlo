@@ -1,0 +1,20 @@
+{% extends 'cards/base.html' %}
+{% block content %}
+
+<h1>Manage your profile</h1>
+<form method="POST" class="card">
+  {% csrf_token %}
+  <label>
+    <strong>What languages do you speak?</strong>
+    <span class="text-muted">When the language you're learning is structured differently from your primary tongue, it can be helpful to see important phrases translated into another language, even if you're not fluent.</span>
+  </label>
+  <select multiple name="set_languages" class="form-control" length="{{ languages.count }}">
+  {% for language in languages %}
+    <option value="{{ language.name }}" {% if language in person.languages %}selected{% endif %}>{{ language.name }}</option>
+  {% endfor %}
+  </select>
+
+  <button class="btn btn-primary">Submit</button>
+</form>
+
+{% endblock %}

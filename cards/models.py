@@ -37,8 +37,10 @@ class CardTranslation(models.Model):
 class Person(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     facebook_name = models.CharField(max_length=200, blank=True)
-
     speaks_languages = models.ManyToManyField(Language, related_name='speakers')
+
+    def languages(self):
+        return Language.objects.filter(deck__person=self)
 
     def salutation(self):
         return self.user.first_name or self.user.username
