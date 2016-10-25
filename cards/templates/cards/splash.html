@@ -2,9 +2,9 @@
 {% block header %}{% endblock %}
 
 {% block content %}
-<div class="jumbotron jumbotron-fluid">
-  <div class="container">
-    <div class="row p-y-2">
+<div class="jumbotron-splash">
+  <div class="container-fluid">
+    <div class="row">
       {% for message in messages %}
       <div class="alert alert-danger alert-dismissable fade in
           {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">
@@ -14,8 +14,11 @@
         {{ message }}
       </div>
       {% endfor %}
-      <div class="col-md-8 col-sm-6 inverted m-t-1 p-x-2 p-y-2">
-        <h1>Sunlo is a social language&nbsp;learning app</h1>
+      <div class="col-lg-8 col-md-7 inverted p-x-2">
+        <br class="hidden-sm-down">
+        <br class="hidden-sm-down">
+        <br class="hidden-md-down">
+        <h1>Sunlo is a social<br>language learning app</h1>
         <br>
         <p>Create your own flash cards, or pick from a crowd-sourced pool.</p>
         <p>The phrase-based approach is meant for people who are immersed enough
@@ -24,62 +27,62 @@
         <p>(This is not a company, just an app. It's open source and free to use. If you like Django and want to help with the app, <a href="https://github.com/michaelsnook/sunlo">come have a look.</a>)</p>
 
       </div>
-      <div class="card col-md-4 col-sm-6">
+      <div class="col-lg-4 col-md-5 p-a-2">
+        <div class="card-login-signup">
+          <ul class="nav nav-pills nav-pills-two">
+            <li class="nav-item">
+              <a class="nav-link active" href="#login" data-toggle="pill">Log in</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#signup" data-toggle="pill">Sign up</a>
+            </li>
+          </ul>
+          <hr>
+          <div class="tab-content">
+            <div class="tab-pane active" id="login" role="tabpanel">
+              <form method="post">
+                <h2>Please log in</h2>
 
-        <ul class="nav nav-pills nav-pills-two">
-          <li class="nav-item">
-            <a class="nav-link active" href="#login" data-toggle="pill">Log in</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#signup" data-toggle="pill">Sign up</a>
-          </li>
-        </ul>
-        <br>
-        <div class="tab-content">
-          <div class="tab-pane active" id="login" role="tabpanel">
-            <form method="post">
-              <h2>Please log in</h2>
-
-              {% csrf_token %}
-              <div class="form-group">
-                <label for="username">Username</label>
-                <input name="username" type="slug" id="username" class="form-control" placeholder="mzungumichael" required autofocus>
-              </div>
-              <div class="form-group">
-                <label for="password">Password</label>
-                <input name="password"  type="password" id="password" class="form-control" placeholder="************" required>
-              </div>
-              <div class="clearfix">
-                <button class="pull-md-right btn btn-primary btn-block" type="submit">
-                  Log in
-                </button>
-              </div>
-            </form>
-          </div>
-          <div class="tab-pane" id="signup" role="tabpanel">
-            <form method="post" action="{% url 'user_register' %}">
-              {% csrf_token %}
-              <div class="form-group">
-                <label for="signup_email">Email</label>
-                <input name="email" type="slug" id="signup_email" class="form-control" placeholder="your_address@mail.com">
-              </div>
-              <div class="form-group">
-                <label for="signup_username">Username</label>
-                <input name="username" type="slug" id="signup_username" class="form-control" placeholder="mzungumichael" required>
-              </div>
-              <div class="form-group">
-                <label for="signup_password">Password</label>
-                <input name="password"  type="password" id="signup_password" class="form-control" placeholder="************" required>
-              </div>
-              <div class="clearfix">
-                <button class="pull-md-right btn btn-primary btn-block" type="submit">
-                  Sign up
-                </button>
-              </div>
-            </form>
+                {% csrf_token %}
+                <div class="form-group">
+                  <label for="username">Username</label>
+                  <input name="username" type="slug" id="username" class="form-control" placeholder="mzungumichael" required>
+                </div>
+                <div class="form-group">
+                  <label for="password">Password</label>
+                  <input name="password"  type="password" id="password" class="form-control" placeholder="************" required>
+                </div>
+                <div class="clearfix">
+                  <button class="pull-md-right btn btn-primary btn-block" type="submit">
+                    Log in
+                  </button>
+                </div>
+              </form>
+            </div>
+            <div class="tab-pane" id="signup" role="tabpanel">
+              <form method="post" action="{% url 'user_register' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                  <label for="signup_email">Email</label>
+                  <input name="email" type="slug" id="signup_email" class="form-control" placeholder="your_address@mail.com">
+                </div>
+                <div class="form-group">
+                  <label for="signup_username">Username</label>
+                  <input name="username" type="slug" id="signup_username" class="form-control" placeholder="mzungumichael" required>
+                </div>
+                <div class="form-group">
+                  <label for="signup_password">Password</label>
+                  <input name="password"  type="password" id="signup_password" class="form-control" placeholder="************" required>
+                </div>
+                <div class="clearfix">
+                  <button class="pull-md-right btn btn-primary btn-block" type="submit">
+                    Sign up
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
-
       </div>
     </div>
   </div>

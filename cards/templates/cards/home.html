@@ -4,8 +4,13 @@
 <section class="card">
   <p>This is your home screen, {{ person.salutation|capfirst }}.</p>
 
+  {% if not person.deck_set.count %}
+  <p>You don't have any decks yet, which means you're not working on any
+    languages at this time. Why don't you find the "add deck" button and press it?</p>
+  {% endif %}
+
   {% for deck in person.deck_set.all %}
-  <a class="card" href="/deck/{{ deck.language.name|lower }}">
+  <a class="card" href="{% url 'my_deck' deck.language.name %}">
     {{ deck.language.name }}, {{ deck.cards.count }} cards
   </a>
   {% endfor %}

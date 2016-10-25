@@ -18,6 +18,9 @@
     <nav class="navbar navbar-dark bg-primary">
       <div class="nav navbar-nav">
         <a class="nav-item nav-link" href="{% url 'home' %}">Sunlo</a>
+        {% if person %}
+        <a class="nav-item nav-link" href="">{{ person.salutation|capfirst }}</a>
+        {% endif %}
         {% if deck %}
         <a class="nav-item nav-link" href="{% url 'my_deck' deck.language.name %}">{{ deck.language }}</a>
         {% endif %}

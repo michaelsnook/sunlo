@@ -1,0 +1,30 @@
+.jumbotron-splash {
+  @extend .jumbotron, .jumbotron-fluid;
+
+  background-color: #025aa5;
+  .inverted {
+    h1, p {
+      color: white;
+    }
+    a {
+      color: rgba(255,255,255,0.7);
+      &:hover, &:visited, &:active, &:focus {
+        color: rgba(255,255,255,1);
+      }
+    }
+  }
+}
+.card-login-signup {
+  @extend .card;
+  min-height: 435px;
+}
+.nav-pills-two {
+  .nav-item {
+    width: 49%;
+    text-align: center;
+  }
+}
+.container-fluid {
+  // TODO: use sass var for breakpoint
+  max-width: 1140px;
+}
