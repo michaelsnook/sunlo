@@ -196,17 +196,7 @@ def my_deck(request, deck_language_name):
 
 @login_required
 def index(request):
-    # show user's own decks. if the user is staff, show all decks
-    if request.user.is_staff and request.user.is_active:
-        decks = Deck.objects.all()
-        people = Person.objects.all()
-    else:
-        decks = Deck.objects.filter(person=request.user.person)
-        #@TODO add friendships, m2m field on Person
-        people = (user.person,) # should be their friends
-
     context = {
-        'decks': decks,
         'cards': Card.objects.all(),
     }
     return render(request, 'cards/index.html', context)

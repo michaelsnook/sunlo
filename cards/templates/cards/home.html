@@ -2,18 +2,28 @@
 {% block content %}
 
 <section class="card">
-  <p>This is your home screen, {{ person.salutation|capfirst }}.</p>
+  <div class="row m-b-2">
+    <div class="col-sm-9">
+      <h3>{{ person.salutation|capfirst }}&rsquo;s home screen.</h3>
+      <h4>You&rsquo;re studying {{ decks.count }} language decks</h4>
+    </div>
+    <div class="col-sm-3">
+      <a href="{% url 'deck_add' %}" class="pull-sm-right btn btn-outline-primary">deck <span class="tag tag-pill tag-primary">+</span></a>
+    </div>
+  </div>
 
-  {% if not person.deck_set.count %}
-  <p>You don't have any decks yet, which means you're not working on any
-    languages at this time. Why don't you find the "add deck" button and press it?</p>
-  {% endif %}
-
-  {% for deck in person.deck_set.all %}
+  {% if not decks.count %}
+  <p>You don&rsquo;t have any decks yet, which means you&rsquo;re not working on any
+    languages at this time. Why don&rsquo;t you find the &ldquo;deck +&rdquo; button and see
+    what it does?</p>
+  {% else %}
+    {% for deck in decks.all %}
   <a class="card" href="{% url 'my_deck' deck.language.name %}">
     {{ deck.language.name }}, {{ deck.cards.count }} cards
   </a>
-  {% endfor %}
+    {% endfor %}
+  </div>
+  {% endif %}
 
 </section>
 

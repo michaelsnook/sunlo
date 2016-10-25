@@ -4,30 +4,28 @@
 header, footer, main {
   margin-left: auto;
   margin-right: auto;
-  max-width: 800px;
+  max-width: 768px;
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
 header {
   text-align: center;
+  margin-top: 0;
+  .app-nav {
+    @extend .navbar, .navbar-dark, .bg-primary;
+    border-radius: 0;
+  }
 }
 footer {
   border-top: 1px solid rgba(0, 0, 0, 0.125);
 }
 @media screen and (max-width: 767px) {
-  header {
-    margin-top: 0;
-  }
   footer, main {
     padding-left: 5%;
     padding-right: 5%;
   }
 }
-@media screen and (min-width: 768px) {
-  header, footer, main {
-    width: 80%;
-  }
-}
+
 
 section {
   margin-top: 1rem;
@@ -35,6 +33,11 @@ section {
 }
 .card {
   padding: 2rem;
+}
+section.card {
+  max-width: 90vw;
+  margin-left: auto;
+  margin-right: auto;
 }
 .btn-swiping {
   font-size: 2.75rem;

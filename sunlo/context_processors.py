@@ -8,6 +8,6 @@ def app_context(request):
     if request.user.is_authenticated:
         context.update({
             'person': request.user.person,
-            'decks': request.user.person.deck_set
+            'decks': request.user.person.deck_set.all()
         })
     return context
