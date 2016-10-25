@@ -20,7 +20,7 @@ def login_page(request):
             messages.error(request, 'Invalid login')
             return redirect(settings.LOGIN_URL)
     else:
-        return render(request, 'cards/login.html')
+        return render(request, 'cards/login.html', {})
 
 def logout_page(request):
     logout(request)
@@ -104,12 +104,10 @@ def language_detail(request, language_id):
 
 @login_required
 def app_home(request):
-    context = { 'person' : request.user.person, }
-    return render(request, 'cards/home.html', context)
+    return render(request, 'cards/home.html', {})
 
 def public_splash_page(request):
-    context = { 'languages' : Language.objects.all(), }
-    return render(request, 'cards/splash.html', context)
+    return render(request, 'cards/splash.html', {})
 
 def home(request):
     if request.method == 'POST':
@@ -150,10 +148,9 @@ def deck_add(request):
                 return redirect('/deck/%s' % deck.language.name )
         return redirect('/deck/%s' % deck.language.name )
 
+    context = {}
+
     if request.method == 'GET':
-        context = {
-            'languages': Language.objects.all(),
-        }
         return render(request, 'cards/deck_add.html', context)
 
 
@@ -181,28 +178,18 @@ def card_add(request):
         messages.success(request, 'Successfully created your new card!')
         return redirect('card_detail', card.id)
 
-    person = request.user.person
-    context = {
-        'person': request.user.person,
-        'languages': Language.objects.all(),
-    }
+    context = {}
     return render(request, 'cards/card_add.html', context)
 
 @login_required
 def my_deck(request, deck_language_name):
-    person = request.user.person
-    deck = get_object_or_404(Deck, language__name__iexact=deck_language_name, person=person)
-
-    context = {
-        'person': request.user.person,
-        'language': deck.language,
-        'deck': deck,
-    }
+    context = {}
     try:
-        context['deck'] = Deck.objects.get(person_id=person.id, language__name__iexact=deck_language_name)
+        context.update({
+            'deck': Deck.objects.get(person=request.user.person, language__name__iexact=deck_language_name)
+        })
     except ObjectDoesNotExist:
         return render(request, 'cards/deck_not_learning_detail.html', context)
-
 
     return render(request, 'cards/deck_detail.html', context)
 
@@ -210,19 +197,16 @@ def my_deck(request, deck_language_name):
 @login_required
 def index(request):
     # show user's own decks. if the user is staff, show all decks
-    user = request.user
-    if user.is_staff and user.is_active:
+    if request.user.is_staff and request.user.is_active:
         decks = Deck.objects.all()
         people = Person.objects.all()
     else:
-        decks = Deck.objects.filter(person=user.person)
+        decks = Deck.objects.filter(person=request.user.person)
         #@TODO add friendships, m2m field on Person
         people = (user.person,) # should be their friends
 
     context = {
         'decks': decks,
-        'people': people,
-        'languages': Language.objects.all(),
         'cards': Card.objects.all(),
     }
     return render(request, 'cards/index.html', context)

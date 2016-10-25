@@ -11,7 +11,7 @@
   </div>
   <div class="row">
     <div class="col-md-12 text-md-right">
-      <h4 class="">{{ request.user.person.speaks_languages.all|join:", " }}</h4>
+      <h4 class="">{{ person.speaks_languages.all|join:", " }}</h4>
       <div class="blockquote m-y-2">
         {% for phrase in card.cardtranslation_set.all %}
         <h3 class="text-muted"><em>&ldquo;{{ phrase.text }}&rdquo;</em></h3>

@@ -41,7 +41,8 @@ to run with `foreman start` or `heroku local`
 1. Compile bootstrap locally with mixins/vars
 1. ~~Add a new card and its translation~~
 1. Add new translation to an existing card
-1. Enable middleware to pass user, settings, and deck, and current deck into each page
+1. ~~Enable context processors to pass Person, Decks, and Languages into each template~~
+1. Track session info like which deck we're currently working on
 1. ~~Create a new Deck, only one per language per user, and add cards to it~~
 1. Build "Levels" interface where you peruse a set of cards with the same
 difficulty rating
