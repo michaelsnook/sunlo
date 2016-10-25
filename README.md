@@ -32,18 +32,19 @@ heroku run ./manage.py migrate \
 to run with `foreman start` or `heroku local`
 
 ## Roadmap
-1. [1/4] Add Users with public signup and forgot password link
-  * [done] user login / logout
-  * [todo] create user
-  * [todo] reset password
-  * [todo] forgot password
-1. [done] Support SCSS for styles
-1. Build view to add a new card
-1. Build view to add new translation
-1. Middleware to remember user settings on each page and associate that with
-a specific Deck in the database
-1. Create a new Deck, only one per language per user, and add cards to it
+1. Add Users with public signup and forgot password link
+  * ~~user login / logout~~
+  * ~~create user~~
+  * reset password
+  * forgot password
+1. ~~Support SCSS for styles~~
+1. Compile bootstrap locally with mixins/vars
+1. ~~Add a new card and its translation~~
+1. Add new translation to an existing card
+1. Enable middleware to pass user, settings, and deck, and current deck into each page
+1. ~~Create a new Deck, only one per language per user, and add cards to it~~
 1. Build "Levels" interface where you peruse a set of cards with the same
 difficulty rating
-1. Build Levels overview page where you see how much of each level's cards
-you've taken into your deck, learned, or skipped
+1. ~~Build Deck overview page where you see how much of each level's cards
+you've taken into your deck, learned, or skipped~~
+1. Add "friendships" that link two people, or rather, that link a person with another person's deck, so they can send suggestions
