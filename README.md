@@ -35,7 +35,7 @@ to run with `foreman start` or `heroku local`
 1. Add Users with public signup and forgot password link
   * ~~user login / logout~~
   * ~~create user~~
-  * reset password
+  * ~~reset password~~
   * forgot password
 1. ~~Support SCSS for styles~~
 1. Compile bootstrap locally with mixins/vars

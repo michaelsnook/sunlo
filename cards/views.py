@@ -32,7 +32,7 @@ def user_register(request):
         person = Person.objects.create(user=user)
         if user is not None:
             login(request, user)
-            messages.success('Congratulations on creating your account!')
+            messages.success(request, 'Congratulations on creating your account!')
             return redirect('user_profile')
         else:
             messages.error(request, 'Something went wrong, please try again')
