@@ -2,13 +2,13 @@
 {% block content %}
 <section class="card">
   <h2>Add a new card to one of your decks</h2>
-  <form class="form" method="post" role="form">
+  <form method="post" role="form">
     {% csrf_token %}
 
     <label>Add to deck</label>
     <select class="form-control m-b-1" name="card_language_name">
       <option value="">-- select deck --</option>
-      {% for deck in person.deck_set.all %}
+      {% for deck in decks %}
       <option value="{{ deck.language_name }}">{{ deck.language_name }}</option>
       {% endfor %}
     </select>

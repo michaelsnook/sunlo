@@ -31,7 +31,7 @@
     {% endif %}
   </div>
   {% if deck %}
-  <form method="post" class="form" action="{% url 'membership_update' card.id %}">
+  <form method="post" role="form" action="{% url 'membership_update' card.id %}">
     {% csrf_token %}
     <div class="text-xs-center m-y-2">
       <button type="submit" name="status" value="rejected" class="p-y-2 btn btn-swiping btn-secondary btn-lg">

@@ -1,19 +1,66 @@
 {% extends 'cards/base.html' %}
 {% block content %}
 
-<h1>Manage your profile</h1>
-<form method="POST" class="card">
+
+<form method="post" class="card" role="form">
+  <div class="row">
+    <div class="col-xs-12">
+      <h2 class="pull-xs-left">{{ person.username }}, {% if not person.speaks_languages.count %}set up{% else %}manage{% endif %} your profile</h2>
+    </div>
+  </div>
+
   {% csrf_token %}
-  <label>
-    <strong>What languages do you understand?</strong>
-  </label>
-  <select multiple name="set_languages" class="form-control" length="{{ languages.count }}">
-  {% for language in languages %}
-    <option value="{{ language.name }}" {% if language in person.speaks_languages.all %}selected{% endif %}>{{ language.name }}</option>
-  {% endfor %}
-  </select>
-  <br>
-  <button class="btn btn-primary">Submit</button>
+  <input type="hidden" name="action" value="person update">
+
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input id="name" type="text" class="form-control" name="name" value="{{ person.name }}">
+  </div>
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input id="email" type="email" class="form-control" name="email" value="{{ person.email }}">
+  </div>
+  <div class="form-group">
+    <label for="speaks_languages">
+      What languages do you understand?
+    </label>
+    {% if not person.speaks_languages.count %}
+    <div class="alert alert-dismissable fade in alert-warning" role="alert">
+      You must list at least one language so we know which
+      translations to show
+    </div>
+    {% endif %}
+    <select id="speaks_languages" name="speaks_languages" class="form-control" length="{{ languages.count }}" multiple>
+    {% for language in languages %}
+      <option value="{{ language.name }}" {% if language in person.speaks_languages.all %}selected{% endif %}>{{ language.name }}</option>
+    {% endfor %}
+    </select>
+    <p class="text-muted pull-sm-right">To request a new language, <a href="mailto:michael.snook@gmail.com">email me</a>.</p>
+  </div>
+
+  <div class="form-group">
+    <button class="btn btn-primary">Submit</button>
+  </div>
+</form>
+<form method="post" class="card" role="form">
+  {% csrf_token %}
+  <input type="hidden" name="action" value="password change">
+  <h2>Change your password</h2>
+  <div class="form-group">
+    <label>Current password</label>
+    <input name="password" type="password" class="form-control" placeholder="************" required>
+  </div>
+  <div class="form-group">
+    <label>New password</label>
+    <input name="new_password" type="password" class="form-control" placeholder="************" required>
+  </div>
+  <div class="form-group">
+    <label>Repeat password</label>
+    <input name="repeat_password" type="password" class="form-control" placeholder="************" required>
+  </div>
+  <div class="form-group">
+    <button type="submit" class="btn btn-primary">Change password</button>
+  </div>
 </form>
 
 {% endblock %}

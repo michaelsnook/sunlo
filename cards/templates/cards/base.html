@@ -40,7 +40,7 @@
 
   <main id="main" class="p-y-1">
     {% for message in messages %}
-    <div class="alert alert-danger alert-dismissable fade in
+    <div class="alert alert-dismissable fade in
         {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
@@ -60,10 +60,17 @@
   {% block footer %}
     {% if user.is_authenticated %}
   <footer id="footer" class="m-y-2 p-y-2">
-    <a href="{% url 'deck_add' %}" class="btn btn-outline-primary">
-      deck <span class="tag tag-pill tag-primary">+</span></a>
+    <a href="{% url 'user_profile' %}" class="btn btn-outline-primary">
+      profile <span class="tag tag-pill tag-primary">></span></a>
+    {% if person.speaks_languages.count %}
+      {% if decks.count %}
     <a href="{% url 'card_add' %}" class="btn btn-outline-primary">
       card <span class="tag tag-pill tag-primary">+</span></a>
+      {% endif %}
+    <a href="{% url 'deck_add' %}" class="btn btn-outline-primary">
+      deck <span class="tag tag-pill tag-primary">+</span></a>
+    {% endif %}
+
   </footer>
     {% endif %}
   {% endblock %}

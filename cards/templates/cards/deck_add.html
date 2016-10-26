@@ -2,7 +2,7 @@
 {% block content %}
 <section class="card">
   <h2>Start a new language deck?</h2>
-  <form id="form-add-deck" class="form" method="post" role="form">
+  <form id="form-add-deck" method="post" role="form">
     {% csrf_token %}
     <select class="form-control m-b-1" size="{{ languages.count }}" name="language_name">
       {% for language in languages %}

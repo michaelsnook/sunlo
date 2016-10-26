@@ -9,7 +9,7 @@
   {% else %}
   <p>You're not currently learning this language. Want to begin?<p>
   {% endif %}
-  <form method="post">
+  <form method="post" role="form">
     {% csrf_token %}
     <input type="hidden" name="language_name" value="{{ language.name }}">
     <button type="submit" class="btn btn-block btn-outline-primary m-b-1" href="">

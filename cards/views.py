@@ -10,8 +10,8 @@ from .models import User, Card, Deck, Language, Person, CardTranslation, DeckMem
 
 def login_page(request):
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
+        username = request.POST.get('username')
+        password = request.POST.get('password')
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
@@ -28,7 +28,7 @@ def logout_page(request):
 
 def user_register(request):
     if request.method == 'POST':
-        user = User.objects.create_user(request.POST['username'], request.POST['email'], request.POST['password'])
+        user = User.objects.create_user(request.POST.get('username'), request.POST.get('email'), request.POST.get('password'))
         person = Person.objects.create(user=user)
         if user is not None:
             login(request, user)
@@ -70,14 +70,14 @@ def membership_update(request, card_id):
 
         try:
             deckmembership = DeckMembership.objects.get(card=card, deck=deck)
-            deckmembership.status=request.POST['status']
+            deckmembership.status=request.POST.get('status')
             deckmembership.save()
 
         except ObjectDoesNotExist:
             deckmembership = DeckMembership.objects.create(
                 card=card,
                 deck=deck,
-                status=request.POST['status']
+                status=request.POST.get('status')
             )
 
         context = {
@@ -133,7 +133,7 @@ def deck_detail(request, deck_id):
 def deck_add(request):
 
     if request.method == 'POST':
-        language_name = request.POST['language_name']
+        language_name = request.POST.get('language_name')
         language = get_object_or_404(Language, name__iexact=language_name)
         deck = None
 
@@ -160,15 +160,15 @@ def deck_add(request):
 def card_add(request):
     if request.method == 'POST':
         card_language = Language.objects.get(
-            name__iexact=request.POST['card_language_name'])
+            name__iexact=request.POST.get('card_language_name'))
         cardtranslation_language = Language.objects.get(
-            name__iexact=request.POST['cardtranslation_language_name'])
+            name__iexact=request.POST.get('cardtranslation_language_name'))
         deck = Deck.objects.get(language=card_language, person=request.user.person)
 
-        card = Card.objects.create(language=card_language, text=request.POST['card_text'])
+        card = Card.objects.create(language=card_language, text=request.POST.get('card_text'))
         cardtranslation = CardTranslation.objects.create(
             language=cardtranslation_language,
-            text=request.POST['cardtranslation_text'],
+            text=request.POST.get('cardtranslation_text'),
             card=card
         )
         deckmembership = DeckMembership.objects.create(
@@ -186,10 +186,20 @@ def card_add(request):
 @login_required
 def user_profile(request):
     if request.method == 'POST':
-        person = request.user.person
-        set_languages = request.POST.getlist('set_languages')
-        person.speaks_languages.set(Language.objects.filter(name__in=set_languages))
-        messages.success(request, 'Account information updated')
+        if request.POST.get('action') == 'person update':
+            person = request.user.person
+            set_languages = request.POST.getlist('speaks_languages')
+            person.speaks_languages.set(Language.objects.filter(name__in=set_languages))
+            person.name = request.POST.get('name')
+            request.user.email = request.POST.get('email')
+            messages.success(request, 'Account information updated')
+        if request.POST.get('action') == 'password change':
+            authenticate(username=request.POST.get(request.user.username), password=request.POST.get('password'))
+            if request.POST.get('new_password') == request.POST.get('repeat_password'):
+                request.user.password = request.POST.get('new_password')
+                messages.success(request, 'I think we\'ve updated your password')
+            else:
+                messages.error(request, 'your passwords didn\'t match')
 
     return render(request, 'cards/user_profile.html', {})
 

@@ -36,7 +36,7 @@ class CardTranslation(models.Model):
 
 class Person(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    facebook_name = models.CharField(max_length=200, blank=True)
+    name = models.CharField(max_length=200, blank=True)
     speaks_languages = models.ManyToManyField(Language, related_name='speakers')
 
     def languages(self):
@@ -47,9 +47,6 @@ class Person(models.Model):
 
     def username(self):
         return self.user.username
-
-    def name(self):
-        return self.user.first_name + ' ' + self.user.last_name if self.user.first_name else self.username()
 
     def email(self):
         return self.user.email
