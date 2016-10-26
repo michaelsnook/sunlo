@@ -52,7 +52,7 @@ class Person(models.Model):
         return self.user.email
 
     def __str__(self):
-        return self.name() or self.username()
+        return self.name or self.username()
 
 
 class Deck(models.Model):
