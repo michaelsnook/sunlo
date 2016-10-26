@@ -5,15 +5,14 @@
 <form method="POST" class="card">
   {% csrf_token %}
   <label>
-    <strong>What languages do you speak?</strong>
-    <span class="text-muted">When the language you're learning is structured differently from your primary tongue, it can be helpful to see important phrases translated into another language, even if you're not fluent.</span>
+    <strong>What languages do you understand?</strong>
   </label>
   <select multiple name="set_languages" class="form-control" length="{{ languages.count }}">
   {% for language in languages %}
-    <option value="{{ language.name }}" {% if language in person.languages %}selected{% endif %}>{{ language.name }}</option>
+    <option value="{{ language.name }}" {% if language in person.speaks_languages.all %}selected{% endif %}>{{ language.name }}</option>
   {% endfor %}
   </select>
-
+  <br>
   <button class="btn btn-primary">Submit</button>
 </form>
 

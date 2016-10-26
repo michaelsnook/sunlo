@@ -188,10 +188,8 @@ def user_profile(request):
     if request.method == 'POST':
         person = request.user.person
         set_languages = request.POST.getlist('set_languages')
-        # for name in set_languages:
-        #    use the language name to grab the language and create a thing
-        # person.speaks_languages = language_results
-        messages.success(request, 'Account information changed')
+        person.speaks_languages.set(Language.objects.filter(name__in=set_languages))
+        messages.success(request, 'Account information updated')
 
     return render(request, 'cards/user_profile.html', {})
 
