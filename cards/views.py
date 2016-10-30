@@ -194,12 +194,14 @@ def user_profile(request):
             request.user.email = request.POST.get('email')
             messages.success(request, 'Account information updated')
         if request.POST.get('action') == 'password change':
-            authenticate(username=request.POST.get(request.user.username), password=request.POST.get('password'))
-            if request.POST.get('new_password') == request.POST.get('repeat_password'):
-                request.user.password = request.POST.get('new_password')
-                messages.success(request, 'I think we\'ve updated your password')
+            if request.user.check_password(request.POST.get('password')) == False:
+                messages.error(request, 'Invalid password')
+            elif request.POST.get('new_password') != request.POST.get('repeat_password'):
+                messages.error(request, 'Your passwords did not match')
             else:
-                messages.error(request, 'your passwords didn\'t match')
+                request.user.set_password(request.POST.get('new_password'))
+                request.user.save()
+                messages.success(request, 'I think we\'ve updated your password')
 
     return render(request, 'cards/user_profile.html', {})
 
