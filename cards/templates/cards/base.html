@@ -18,12 +18,19 @@
     <nav class="app-nav">
       <div class="container nav navbar-nav">
         <a class="nav-item navbar-brand nav-link"
-        data-toggle="collapse" data-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation" href="{% url 'home' %}">
+        data-toggle="collapse" data-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation" href="#">
           <i class="fa fa-bars" aria-hidden="true"></i> Sunlo
         </a>
       </div>
       <div id="navigation" class="container p-x-0 collapse navbar-toggleable-xl">
         <ul class="nav navbar-nav">
+          
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'home' %}">
+              <i class="fa fa-home" aria-hidden="true"></i>
+              Home
+            </a>
+          </li>
           {% if person %}
           <li class="nav-item">
             <a class="nav-link" href="{% url 'user_profile' %}">
@@ -32,14 +39,30 @@
             </a>
           </li>
           {% endif %}
+          {% if decks %}
+          <li class="nav-item"><hr></li>
           {% if deck %}
-          <li class="nav-item">
-          <a class="nav-link" href="{% url 'my_deck' deck.language.name %}">
-            <i class="fa fa-book" aria-hidden="true"></i>
-            {{ deck.language }} deck
-          </a>
+          <li class="nav-item active">
+            <a class="nav-link active" href="{% url 'my_deck' deck.language.name %}">
+              <i class="fa fa-book" aria-hidden="true"></i>
+              {{ deck.language }} deck
+            </a>
           </li>
           {% endif %}
+          {% for d in decks %}
+            {% if d != deck %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'my_deck' d.language.name %}">
+              <i class="fa fa-book" aria-hidden="true"></i>
+              {{ d.language }} deck
+            </a>
+          </li>
+            {% endif %}
+          {% endfor %}
+          <li class="nav-item"><hr></li>
+          {% endif %}
+
+
           <li class="nav-item">
             <a class="nav-link" href="{% url 'index' %}">
               <i class="fa fa-database" aria-hidden="true"></i>
