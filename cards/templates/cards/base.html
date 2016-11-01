@@ -15,8 +15,8 @@
 
   {% block header %}
   <header id="header">
-    <nav class="app-nav">
-      <div class="container nav navbar-nav">
+    <nav class="app-nav navbar navbar-dark bg-primary p-a-0">
+      <div id="navbar" class="container nav navbar-nav">
         <a class="nav-item navbar-brand nav-link"
         data-toggle="collapse" data-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation" href="#">
           <i class="fa fa-bars" aria-hidden="true"></i> Sunlo
@@ -24,7 +24,6 @@
       </div>
       <div id="navigation" class="container p-x-0 collapse navbar-toggleable-xl">
         <ul class="nav navbar-nav">
-          
           <li class="nav-item">
             <a class="nav-link" href="{% url 'home' %}">
               <i class="fa fa-home" aria-hidden="true"></i>
@@ -40,7 +39,7 @@
           </li>
           {% endif %}
           {% if decks %}
-          <li class="nav-item"><hr></li>
+          <li class="nav-item divider"></li>
           {% if deck %}
           <li class="nav-item active">
             <a class="nav-link active" href="{% url 'my_deck' deck.language.name %}">
@@ -59,7 +58,7 @@
           </li>
             {% endif %}
           {% endfor %}
-          <li class="nav-item"><hr></li>
+          <li class="nav-item divider"></li>
           {% endif %}
 
 
@@ -86,10 +85,8 @@
           {% endif %}
         </ul>
       </div>
-
     </nav>
     {% endblock %}
-
   </header>
 
   <main id="main" class="p-y-1">
