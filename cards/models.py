@@ -82,6 +82,8 @@ class Deck(models.Model):
     def untouched_cards(self):
         return Card.objects.filter(language=self.language).exclude(deck=self)
 
+    def browse_new(self):
+        return Card.objects.filter(language=self.language).exclude(deck=self).first()
 
     #def unseen(self):
     #    return Card.objects.filter(deckmembership__status="unseen")

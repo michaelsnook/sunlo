@@ -61,31 +61,67 @@ def card_detail(request, card_id):
     return render(request, 'cards/card_detail.html', context)
 
 @login_required
+def card_membership_update(request, card_id, status):
+    card = get_object_or_404(Card, pk=card_id)
+    deck = get_object_or_404(Deck, person=request.user.person, language=card.language)
+    try:
+        deckmembership = DeckMembership.objects.get(card=card, deck=deck)
+        deckmembership.status=status
+        deckmembership.save()
+
+    except ObjectDoesNotExist:
+        deckmembership = DeckMembership.objects.create(
+            card=card,
+            deck=deck,
+            status=status,
+        )
+
+    messages.success(request, "Status for card \"%s\" set to \"%s\"" % (card.text,status))
+
+    return (request, deckmembership)
+
+@login_required
 def membership_update(request, card_id):
     if request.method == 'GET':
         return redirect('card_detail', card_id)
     if request.method == 'POST':
-        card = get_object_or_404(Card, pk=card_id)
-        deck = get_object_or_404(Deck, person=request.user.person, language=card.language)
-
-        try:
-            deckmembership = DeckMembership.objects.get(card=card, deck=deck)
-            deckmembership.status=request.POST.get('status')
-            deckmembership.save()
-
-        except ObjectDoesNotExist:
-            deckmembership = DeckMembership.objects.create(
-                card=card,
-                deck=deck,
-                status=request.POST.get('status')
-            )
-
+        request, deckmembership = card_membership_update(request, card_id, request.POST.get('status'))
         context = {
-            'card': card,
+            'card': deckmembership.card or {},
             'membership': deckmembership or {},
             'card_language_matches_a_deck': True,
         }
-        return redirect('card_detail', card.id)
+        return redirect('card_detail', card_id)
+
+@login_required
+def browse_deck(request, deck_language_name):
+    person = request.user.person
+    deckmembership = {}
+    try:
+        deck = Deck.objects.get(person=person, language__name__iexact=deck_language_name)
+    except ObjectDoesNotExist:
+        return render(request, 'cards/deck_not_learning_detail.html', context)
+
+    if request.method == 'POST':
+        request, deckmembership = card_membership_update(request, request.POST.get('card_id'), request.POST.get('status'))
+        return redirect(request.META.get('HTTP_REFERER'))
+
+    if request.method == 'GET':
+        try:
+            card = deck.browse_new()
+        except ObjectDoesNotExist:
+            message.warning(request, 'You have gone through all the cards in this deck.')
+            return render(request, 'cards/deck_detail.html', context)
+
+    context = {
+        'deck': deck,
+        'card': card,
+        'membership': deckmembership or {},
+        'card_language_matches_a_deck': True,
+    }
+
+    return render(request, 'cards/browse_deck.html', context)
+
 
 def language_detail(request, language_id):
     language = get_object_or_404(Language, pk=language_id)

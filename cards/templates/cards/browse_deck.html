@@ -1,0 +1,52 @@
+{% extends 'cards/base.html' %}
+{% block content %}
+<section class="card">
+  <div class="row">
+    <div class="col-md-12">
+      <h4 class="">{{ card.language.name }}{% if membership %}, {{ membership.status }}{% endif %}</h4>
+      <h1>{{ card.text }}</h1>
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 text-md-right">
+      <h4 class="">{{ person.speaks_languages.all|join:", " }}</h4>
+      <div class="blockquote m-y-2">
+        {% for phrase in card.cardtranslation_set.all %}
+        <h3 class="text-muted"><em>&ldquo;{{ phrase.text }}&rdquo;</em></h3>
+        {% endfor %}
+      </div>
+    </div>
+
+    {% if card.see_also.count %}
+    <div class="col-md-6">
+      <h4>Related</h4>
+      <div class="">
+        {% for phrase in card.see_also.all %}
+        <h3><a href="{% url 'card_detail' phrase.id %}">{{ phrase.text }}</a></h3>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+  </div>
+  {% if deck %}
+  <form method="post" role="form" action="{% url 'browse_deck' deck.language_name %}">
+    {% csrf_token %}
+    <input type="hidden" name="card_id" value="{{ card.id }}">
+    <div class="text-xs-center m-y-2">
+      <button type="submit" name="status" value="rejected" class="p-y-2 btn btn-swiping btn-secondary btn-lg">
+        Skip
+      </button>
+      <button type="submit" name="status" value="learning" class="p-y-2 btn btn-swiping btn-success btn-lg">
+        Learn
+      </button>
+    </div>
+  </form>
+  {% else %}
+  <a href="{% url 'deck_add' %}" class="btn btn-primary btn-block btn-lg m-y-2 p-a-2">
+    Start learning {{ card.language }}
+  </a>
+  {% endif %}
+
+</section>
+{% endblock %}
