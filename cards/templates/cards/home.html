@@ -8,7 +8,9 @@
       <h4>You&rsquo;re studying {{ decks.count }} language decks</h4>
     </div>
     <div class="col-sm-3">
-      <a href="{% url 'deck_add' %}" class="pull-sm-right btn btn-outline-primary">deck <span class="tag tag-pill tag-primary">+</span></a>
+      <a href="{% url 'deck_add' %}" class="pull-sm-right btn btn-outline-primary">
+        deck <i class="fa fa-plus-circle" aria-hidden="true"></i>
+      </a>
     </div>
   </div>
 

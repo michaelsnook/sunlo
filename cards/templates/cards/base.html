@@ -21,7 +21,27 @@
         data-toggle="collapse" data-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation" href="#">
           <i class="fa fa-bars" aria-hidden="true"></i> Sunlo
         </a>
+        <a id="add-items-button" href="#" type="button" class="nav-item navbar-brand nav-link pull-xs-right" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fa fa-plus-circle"></i>
+        </a>
+        <ul id="add-items-menu" class="dropdown-menu pull-xs-right text-xs-right p-x-1">
+          {% if person.speaks_languages.count %}
+            {% if decks.count %}
+          <li>
+            <a href="{% url 'card_add' %}">
+            add a new card <i class="fa fa-file-text m-x-1"></i></a>
+          </li>
+            {% endif %}
+          <li>
+            <a href="{% url 'deck_add' %}">
+            start a new deck <i class="fa fa-book m-x-1"></i></a>
+          </li>
+          {% endif %}
+        </ul>
       </div>
+
+
+
       <div id="navigation" class="container p-x-0 collapse navbar-toggleable-xl">
         <ul class="nav navbar-nav">
           {% if decks %}
@@ -108,17 +128,6 @@
   {% block footer %}
     {% if user.is_authenticated %}
   <footer id="footer" class="m-y-2 p-y-2">
-    <a href="{% url 'user_profile' %}" class="btn btn-outline-primary">
-      profile <span class="tag tag-pill tag-primary">></span></a>
-    {% if person.speaks_languages.count %}
-      {% if decks.count %}
-    <a href="{% url 'card_add' %}" class="btn btn-outline-primary">
-      card <span class="tag tag-pill tag-primary">+</span></a>
-      {% endif %}
-    <a href="{% url 'deck_add' %}" class="btn btn-outline-primary">
-      deck <span class="tag tag-pill tag-primary">+</span></a>
-    {% endif %}
-
   </footer>
     {% endif %}
   {% endblock %}

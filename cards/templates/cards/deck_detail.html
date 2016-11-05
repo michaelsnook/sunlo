@@ -8,8 +8,14 @@
       <h4>{{ deck.deck_cards.count }} cards </h4>
     </div>
     <div class="col-sm-4">
-      <a href="{% url 'browse_deck' deck.language_name %}" class="btn btn-outline-primary">browse</a>
-      <a href="{% url 'card_add' %}" class="btn btn-outline-primary">card <span class="tag tag-pill tag-primary">+</span></a>
+      <a href="{% url 'browse_deck' deck.language_name %}" class="btn btn-outline-primary">
+        browse
+        <i class="fa fa-play-circle" aria-hidden="true"></i>
+      </a>
+      <a href="{% url 'card_add' %}" class="btn btn-outline-primary">
+        card
+        <i class="fa fa-plus-circle" aria-hidden="true"></i>
+      </a>
     </div>
 
   </div>
