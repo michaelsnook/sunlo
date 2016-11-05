@@ -34,12 +34,43 @@
   <form method="post" role="form" action="{% url 'membership_update' card.id %}">
     {% csrf_token %}
     <div class="text-xs-center m-y-2">
-      <button type="submit" name="status" value="rejected" class="p-y-2 btn btn-swiping btn-secondary btn-lg">
-        Skip
+      {% if membership.status == 'learned' %}
+      <button type="submit" name="status" value="learned" class="p-y-2 btn btn-success btn-lg">
+        <i class="fa fa-star fa-lg"></i> Learned
       </button>
-      <button type="submit" name="status" value="learning" class="p-y-2 btn btn-swiping btn-success btn-lg">
-        Learn
+      {% elif membership.status == 'learning' %}
+      <button type="submit" name="status" value="learned" class="p-y-2 btn btn-outline-success btn-lg">
+        <i class="fa fa-star-o fa-lg"></i> I've learned this!
       </button>
+      {% else %}
+      <button type="submit" name="status" value="learned" class="p-y-2 btn btn-outline-success btn-lg">
+        <i class="fa fa-star-o fa-lg"></i> I already know this!
+      </button>
+      {% endif %}
+
+      {% if membership.status == 'learning' %}
+      <button type="submit" name="status" value="learning" class="p-y-2 btn btn-primary btn-lg">
+        <i class="fa fa-star-half-o fa-lg"></i> Learning
+      </button>
+      {% elif membership.status == 'learned' %}
+      <button type="submit" name="status" value="learning" class="p-y-2 btn btn-outline-primary btn-lg">
+        <i class="fa fa-star-half-o fa-lg"></i> Still learning
+      </button>
+      {% else %}
+      <button type="submit" name="status" value="learning" class="p-y-2 btn btn-outline-primary btn-lg">
+        <i class="fa fa-download fa-lg"></i> Add to deck
+      </button>
+      {% endif %}
+
+      {% ifequal membership.status 'rejected' %}
+      <button type="submit" name="status" value="rejected" class="p-y-2 btn btn-danger btn-lg">
+        <i class="fa fa-times-circle fa-lg"></i> Rejected
+      </button>
+      {% else %}
+      <button type="submit" name="status" value="rejected" class="p-y-2 btn btn-outline-danger btn-lg">
+        <i class="fa fa-times-circle fa-lg"></i> Discard
+      </button>
+      {% endifequal %}
     </div>
   </form>
   {% else %}
