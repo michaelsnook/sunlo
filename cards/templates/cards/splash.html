@@ -31,10 +31,10 @@
         <div class="card-login-signup">
           <ul class="nav nav-pills nav-pills-two">
             <li class="nav-item">
-              <a class="nav-link active" href="#login" data-toggle="pill">Log in</a>
+              <a class="nav-link active" tabindex="5" href="#login" data-toggle="pill">Log in</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#signup" data-toggle="pill">Sign up</a>
+              <a class="nav-link" tabindex="4" href="#signup" data-toggle="pill">Sign up</a>
             </li>
           </ul>
           <hr>
@@ -46,14 +46,14 @@
                 {% csrf_token %}
                 <div class="form-group">
                   <label for="username">Username</label>
-                  <input name="username" type="slug" id="username" class="form-control" placeholder="mzungumichael" required>
+                  <input name="username" tabindex="1" type="slug" id="username" class="form-control" placeholder="mzungumichael" required>
                 </div>
                 <div class="form-group">
                   <label for="password">Password</label>
-                  <input name="password" type="password" id="password" class="form-control" placeholder="************" required>
+                  <input name="password" tabindex="2" type="password" id="password" class="form-control" placeholder="************" required>
                 </div>
                 <div class="clearfix">
-                  <button class="pull-md-right btn btn-primary btn-block" type="submit">
+                  <button tabindex="3" class="pull-md-right btn btn-primary btn-block" type="submit">
                     Log in
                   </button>
                 </div>
