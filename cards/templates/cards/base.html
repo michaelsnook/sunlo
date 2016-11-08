@@ -16,7 +16,7 @@
   {% block header %}
   <header id="header">
     <nav class="app-nav navbar navbar-dark bg-primary p-a-0">
-      <div id="navbar" class="container nav navbar-nav">
+      <div id="navbar" class="container-fluid nav navbar-nav">
         <a class="nav-item navbar-brand nav-link"
         data-toggle="collapse" data-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation" href="#">
           <i class="fa fa-bars" aria-hidden="true"></i> Sunlo
@@ -106,7 +106,14 @@
     {% endblock %}
   </header>
 
+
+
   <main id="main">
+    <section class="container-fluid back m-y-1">
+    {% block back %}
+    {% endblock %}
+    </section>
+
     {% for message in messages %}
     <div class="alert alert-dismissable fade in
         {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">

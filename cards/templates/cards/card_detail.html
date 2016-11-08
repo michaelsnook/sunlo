@@ -1,6 +1,16 @@
 {% extends 'cards/base.html' %}
-{% block content %}
 
+{% block back %}
+{% if card.language in person.languages %}
+
+<a href="{% url 'my_deck' card.language.name %}">
+  <i class="fa fa-arrow-circle-left"></i> back to {{ card.language }} deck
+</a>
+
+{% endif %}
+{% endblock %}
+
+{% block content %}
 <section class="card container">
   <div class="row">
     <div class="col-md-12">
