@@ -1,6 +1,12 @@
 {% extends 'cards/base.html' %}
-{% block content %}
 
+{% block back %}
+<a href="{% url 'home' %}">
+  <i class="fa fa-arrow-circle-left"></i> back to home screen
+</a>
+{% endblock %}
+
+{% block content %}
 <section class="card">
   <div class="row m-b-1">
     <div class="col-sm-8">
