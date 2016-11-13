@@ -20,7 +20,7 @@ def login_page(request):
             messages.error(request, 'Invalid login')
             return redirect(settings.LOGIN_URL)
     else:
-        return render(request, 'cards/login.html', {})
+        return render(request, 'cards/login.html', { 'login': 'active' })
 
 def logout_page(request):
     logout(request)
@@ -36,7 +36,7 @@ def user_register(request):
             return redirect('user_profile')
         else:
             messages.error(request, 'Something went wrong, please try again')
-    return redirect('home')
+    return render(request, 'cards/login.html', { 'signup': 'active' })
 
 
 def card_detail(request, card_id):
