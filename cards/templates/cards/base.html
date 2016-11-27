@@ -7,6 +7,8 @@
 
   {% block sharemeta %}
   <title>Sunlo - Social Language Learning</title>
+  <meta name="description" content="For language-learners who are self-teaching or learning from friends, immersed or trying to connect better with a mother tongue">
+
   <meta property="og:url" content="{{request.get_full_path}}" />
   <meta property="og:type" content="application" />
   <meta property="og:title" content="Sunlo - Social Language Learning" />
@@ -20,7 +22,7 @@
   {% endcompress %}
 
 </head>
-<body>
+<body class="{% block bodyclass %}{% endblock %}">
 
   {% block page %}{% endblock %}
 
@@ -28,7 +30,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js" integrity="sha384-VjEeINv9OSwtWFLAtmc4JCtEJXXBub00gtSnszmspDLCtC0I4z4nqz7rEFbIZLLU" crossorigin="anonymous"></script>
 
-  <footer id="footer" class="m-y-2 p-y-2">
+  <footer id="footer">
     <p class="small m-y-2">Found a bug? Looking for a new feature? Want to help set priorities for new features and offer your own ideas? <a href="http://slack.sunlo.co">Join us on Slack and tell us about it.</a>
   </footer>
 

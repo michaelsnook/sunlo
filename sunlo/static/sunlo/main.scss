@@ -52,8 +52,13 @@ header#header {
   }
 }
 footer#footer {
-  border-top: 1px solid rgba(0, 0, 0, 0.125);
+  .public & { @extend .container-fluid, .text-md-center; }
+  .app & {
+    @extend .m-y-2, .p-y-2;
+    border-top: 1px solid rgba(0, 0, 0, 0.125);
+  }
 }
+
 @media screen and (max-width: 767px) {
   footer#footer, main {
     padding-left: 5%;
