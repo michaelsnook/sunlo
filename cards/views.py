@@ -166,6 +166,31 @@ def deck_detail(request, deck_id):
 
 
 @login_required
+def translation_add(request, card_id):
+    if request.method == 'POST':
+        language_name = request.POST.get('language_name')
+        language = get_object_or_404(Language, name=language_name)
+        card = get_object_or_404(Card, pk=card_id)
+        # TODO: validate that text is set
+        cardtranslation_text = request.POST.get('text')
+        literal_translation = request.POST.get('literal') or ''
+
+        cardtranslation = CardTranslation(
+            card=card,
+            language=language,
+            text=cardtranslation_text,
+            literal=literal_translation
+        )
+        cardtranslation.save()
+        messages.success(request, 'Added your new card translation')
+
+        context = {
+            'card': cardtranslation.card,
+        }
+
+    return redirect('card_detail', card_id)
+
+@login_required
 def deck_add(request):
 
     if request.method == 'POST':

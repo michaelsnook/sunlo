@@ -1,5 +1,16 @@
 {% extends 'cards/app.html' %}
 
+{% block sharemeta %}
+  <title>Sunlo - Social Language Learning</title>
+  <meta name="description" content="For language-learners who are self-teaching or learning from friends, immersed or trying to connect better with a mother tongue">
+
+  <meta property="og:url" content="{{request.get_full_path}}" />
+  <meta property="og:type" content="application" />
+  <meta property="og:title" content="Sunlo - Social Language Learning" />
+  <meta property="og:description" content="For language-learners who are self-teaching or learning from friends, immersed or trying to connect better with a mother tongue" />
+  <meta property="og:image" content="" />
+{% endblock %}
+
 {% block back %}
 {% if card.language in person.languages %}
 
@@ -20,9 +31,11 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-md-12 text-md-right">
-      <h4 class="">{{ person.speaks_languages.all|join:", " }}</h4>
-      <div class="blockquote m-y-2">
+    <div class="col-md-12 text-md-right m-t-1">
+      <a id="add-translation-button" href="#" data-toggle="modal" data-target="#translation-add-form" aria-haspopup="true" aria-expanded="false">
+        <i class="fa fa-plus-circle"></i> translation
+      </a>
+      <div class="blockquote m-y-1">
         {% for phrase in card.cardtranslation_set.all %}
         <h3 class="text-muted"><em>&ldquo;{{ phrase.text }}&rdquo;</em></h3>
         {% endfor %}
@@ -96,4 +109,41 @@
   {% endif %}
 
 </section>
+
+<div id="translation-add-form" class="modal fade">
+  <div class="modal-dialog section" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+
+        <form method="POST" action="{% url 'translation_add' card.id %}" role="form">
+          {% csrf_token %}
+          <label>Translation language</label>
+          <select class="form-control m-b-1" name="language_name">
+            <option value="">-- select language --</option>
+            {% for language in person.speaks_languages.all %}
+            <option value="{{ language.name }}">{{ language.name }}</option>
+            {% endfor %}
+          </select>
+          <div class="form-group">
+            <label>Translation text</label>
+            <textarea name="text" class="form-control"></textarea>
+            <a href="#" onclick="$('.form-group.literal').removeClass('hidden-xs-up'); $(this).remove()">
+              Add a literal translation as well
+            </a>
+          </div>
+
+          <div class="form-group hidden-xs-up literal">
+            <label>Literal translation</label>
+            <textarea name="literal" class="form-control"></textarea>
+          </div>
+          <div class="form-group">
+            <input type="submit" class="btn btn-block btn-primary m-b-1"
+            name="submit" value="Save translation">
+          </div>
+
+        </form>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 {% endblock %}
