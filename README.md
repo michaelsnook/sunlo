@@ -32,20 +32,21 @@ heroku run ./manage.py migrate \
 to run with `foreman start` or `heroku local`
 
 ## Roadmap
+1. Button and modal for "Pronunciation help"
+1. Share this card on various 1-to-1 messengers
+1. Button, form, and view to "Link this card to a related phrase"
+1. Button, form, and view to "Add a new phrase related to this card"
+1. Menu item and screen to "Search cards" / "Search deck"
+1. "Levels" interface where you peruse a set of cards with the same
+difficulty rating
+
+## Chores
 1. Add Users with public signup and forgot password link
   * ~~user login / logout~~
   * ~~create user~~
   * ~~reset password~~
   * forgot password
-1. ~~Support SCSS for styles~~
-1. Compile bootstrap locally with mixins/vars
-1. ~~Add a new card and its translation~~
-1. Add new translation to an existing card
-1. ~~Enable context processors to pass Person, Decks, and Languages into each template~~
+
+## Yak-shaving
 1. Track session info like which deck we're currently working on
-1. ~~Create a new Deck, only one per language per user, and add cards to it~~
-1. Build "Levels" interface where you peruse a set of cards with the same
-difficulty rating
-1. ~~Build Deck overview page where you see how much of each level's cards
-you've taken into your deck, learned, or skipped~~
-1. Add "friendships" that link two people, or rather, that link a person with another person's deck, so they can send suggestions
+1. Compile bootstrap locally with mixins/vars
