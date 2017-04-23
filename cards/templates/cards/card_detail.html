@@ -27,7 +27,9 @@
     <div class="col-md-12">
       <h4 class="">{{ card.language.name }}{% if membership %}, {{ membership.status }}{% endif %}</h4>
       <h1>{{ card.text }}</h1>
-
+      <a id="pronunciation-button" href="#" data-toggle="modal" data-target="#pronunciation-admonish-modal" aria-haspopup="true" aria-expanded="false">
+        <i class="fa fa-volume-up"></i> pronounce
+      </a>
     </div>
   </div>
   <div class="row">
@@ -109,6 +111,23 @@
   {% endif %}
 
 </section>
+
+<div id="pronunciation-admonish-modal" class="modal fade">
+  <div class="modal-dialog section" role="document">
+    <div class="modal-content">
+      <div class="modal-header p-a-2"><h2 class="m-a-0">Pronounce "{{ card.text }}"</h2></div>
+      <div class="modal-body p-a-2">
+        <p>
+          <i class="fa fa-hand-stop-o"></i>
+          Sunlo is a tool for <em>social language learning</em> &ndash;
+          so go ask one of your {{ card.language }}-speaking friends how to
+          pronounce this phrase.
+          <i class="fa fa-comments-o"></i>
+        </p>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 <div id="translation-add-form" class="modal fade">
   <div class="modal-dialog section" role="document">
