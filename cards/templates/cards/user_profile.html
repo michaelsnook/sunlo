@@ -10,7 +10,6 @@
 
   {% csrf_token %}
   <input type="hidden" name="action" value="person update">
-
   <div class="form-group">
     <label for="name">Name</label>
     <input id="name" type="text" class="form-control" name="name" value="{{ person.name }}">

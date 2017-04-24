@@ -253,6 +253,8 @@ def user_profile(request):
             person.speaks_languages.set(Language.objects.filter(name__in=set_languages))
             person.name = request.POST.get('name')
             request.user.email = request.POST.get('email')
+            person.save()
+            request.user.save()
             messages.success(request, 'Account information updated')
         if request.POST.get('action') == 'password change':
             if request.user.check_password(request.POST.get('password')) == False:

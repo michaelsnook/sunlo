@@ -2,7 +2,6 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.contrib.auth.models import User
-from django.utils.text import capfirst
 
 
 class Language(models.Model):
@@ -52,7 +51,7 @@ class Person(models.Model):
         return self.user.email
 
     def __str__(self):
-        return self.name or self.username()
+        return self.name or self.user.username
 
 
 class Deck(models.Model):
@@ -98,7 +97,7 @@ class Deck(models.Model):
         return self.person.knows
 
     def __str__(self):
-        return capfirst(self.person.name()) + ', ' + self.language.code
+        return self.person.__str__() + ', ' + self.language.code
 
 class DeckMembership(models.Model):
     deck = models.ForeignKey(Deck)
