@@ -18,6 +18,6 @@ urlpatterns = [
     url(r'^card/(?P<card_id>[0-9]+)/$', views.card_detail, name='card_detail'),
     url(r'^card/(?P<card_id>[0-9]+)/translation/add/$', views.translation_add, name='translation_add'),
     url(r'^card/(?P<card_id>[0-9]+)/update/$', views.membership_update, name='membership_update'),
-    url(r'^language/(?P<language_id>[0-9]+)/$', views.language_detail, name='language_detail'),
+    url(r'^language/(?P<language_name>[a-zA-Z0-9-_]+)/$', views.language_detail, name='language_detail'),
 
 ]

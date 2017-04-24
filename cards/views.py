@@ -123,8 +123,8 @@ def browse_deck(request, deck_language_name):
     return render(request, 'cards/browse_deck.html', context)
 
 
-def language_detail(request, language_id):
-    language = get_object_or_404(Language, pk=language_id)
+def language_detail(request, language_name):
+    language = get_object_or_404(Language, name=language_name)
     deck = {}
 
     if request.user.is_authenticated:

@@ -2,7 +2,17 @@
 {% block content %}
 <section class="card">
 <div class="container">
+  {% if not user.person %}
+  <a href="{% url 'user_register' %}" class="btn btn-primary pull-xs-right">
+    Start learning {{ language }}
+  </a>
+  {% elif language not in user.person.languages %}
+  <a href="{% url 'deck_add' %}" class="btn btn-primary pull-xs-right">
+    Start learning {{ language }}
+  </a>
+  {% endif %}
   <h1>{{ language.name }}</h1>
+
   <div class="row">
     <div class="col-md-6">
       <h4>{{ language.card_set.count }} cards</h4>
