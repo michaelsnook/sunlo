@@ -50,6 +50,11 @@ class Person(models.Model):
     def email(self):
         return self.user.email
 
+    def speaks_any_languages(self):
+        if self.speaks_languages.exists():
+            return True
+        return False
+
     def __str__(self):
         return self.name or self.user.username
 
