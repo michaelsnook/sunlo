@@ -143,7 +143,7 @@
         <form method="POST" action="{% url 'translation_add' card.id %}" role="form">
           {% csrf_token %}
           <label>Translation language</label>
-          <select class="form-control m-b-1" name="language_name">
+          <select class="form-control m-b-1" name="language_name" required>
             <option value="">-- select language --</option>
             {% for language in person.speaks_languages.all %}
             <option value="{{ language.name }}">{{ language.name }}</option>
@@ -151,7 +151,7 @@
           </select>
           <div class="form-group">
             <label>Translation text</label>
-            <textarea name="text" class="form-control"></textarea>
+            <textarea name="text" class="form-control" required></textarea>
             <a href="#" onclick="$('.form-group.literal').removeClass('hidden-xs-up'); $(this).remove()">
               Add a literal translation as well
             </a>
@@ -180,7 +180,7 @@
         <form method="POST" action="{% url 'relations_add' card.id %}" role="form">
           {% csrf_token %}
           <label>Select related phrases</label>
-          <select class="form-control m-b-1" name="related_cards">
+          <select class="form-control m-b-1" name="related_cards" required>
             <option value="">-- select phrase --</option>
             {% for this_card in card.language.card_set.all %}
             <option value="{{ this_card.id }}">{{ this_card.text }}</option>
