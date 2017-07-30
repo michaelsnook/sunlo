@@ -1,3 +1,4 @@
 $(document).ready(function() {
-  $('[name=related_cards]').chosen({'width': '100%'});
+  $('.chosen-select').chosen({width: '100%'});
+  $('.chosen-search-input').width('100%');
 });
