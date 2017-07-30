@@ -179,9 +179,8 @@
 
         <form method="POST" action="{% url 'relations_add' card.id %}" role="form">
           {% csrf_token %}
-          <label>Select related phrases</label>
-          <select class="form-control m-b-1" name="related_cards" required>
-            <option value="">-- select phrase --</option>
+          <label>Select related phrases</label><br>
+          <select class="form-control m-b-1" name="related_cards" multiple required>
             {% for this_card in card.language.card_set.all %}
             <option value="{{ this_card.id }}">{{ this_card.text }}</option>
             {% endfor %}
@@ -190,7 +189,6 @@
             <input type="submit" class="btn btn-block btn-primary m-b-1"
             name="submit" value="Save relations">
           </div>
-
         </form>
       </div>
     </div><!-- /.modal-content -->

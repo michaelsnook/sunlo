@@ -1,6 +1,8 @@
 @import 'bootstrap';
+@import 'chosen';
 @import 'splash';
 @import 'https://use.fontawesome.com/5f95af7c96.css';
+
 
 header#header, footer#footer, main {
   margin-left: auto;
@@ -99,3 +101,4 @@ h4 {
 }
 .alert-error { @extend .alert-danger; }
 #speaks_languages { overflow-y: auto; }
+.chosen-container { margin-bottom: 1rem; }

@@ -189,14 +189,24 @@ def translation_add(request, card_id):
 
 @login_required
 def relations_add(request, card_id):
-    related = request.POST.get('related_cards') if request.method == 'POST' else None
+    related = request.POST.getlist('related_cards') if request.method == 'POST' else None
     if related == None:
         messages.error(request, 'No related phrase selected')
     else:
         card = get_object_or_404(Card, pk=card_id)
-        new_related_card = get_object_or_404(Card, pk=related)
-        card.see_also.add(new_related_card)
-        messages.success(request, 'Added new related phrases')
+        new_relations = 0
+        bad_relations = 0
+        for related_card_id in related:
+            try:
+                new_related_card = Card.objects.get(pk=related_card_id)
+                card.see_also.add(new_related_card)
+                new_relations += 1
+            except ObjectDoesNotExist:
+                bad_relations += 1
+        if new_relations:
+            messages.success(request, "Added new %d related phrases" % new_relations)
+        if bad_relations:
+            messages.warning(request, "Errors adding %d new relations" % bad_relations)
     return redirect('card_detail', card_id)
 
 @login_required
