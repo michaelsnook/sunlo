@@ -34,8 +34,9 @@
   </div>
   <div class="row">
     <div class="col-md-12 text-md-right m-t-1">
+      <h4>Translations</h4>
       <a id="add-translation-button" href="#" data-toggle="modal" data-target="#translation-add-form" aria-haspopup="true" aria-expanded="false">
-        <i class="fa fa-plus-circle"></i> translation
+        <i class="fa fa-plus-circle"></i> add a translation
       </a>
       <div class="blockquote m-y-1">
         {% for phrase in card.cardtranslation_set.all %}
@@ -44,16 +45,17 @@
       </div>
     </div>
 
-    {% if card.see_also.count %}
     <div class="col-md-6">
-      <h4>Related</h4>
-      <div class="">
+      <h4>Related Phrases</h4>
+      <a id="add-related-button" href="#" data-toggle="modal" data-target="#related-add-form" aria-haspopup="true" aria-expanded="false">
+        <i class="fa fa-plus-circle"></i> add a related phrase
+      </a>
+      <div class="m-t-1">
         {% for phrase in card.see_also.all %}
         <h3><a href="{% url 'card_detail' phrase.id %}">{{ phrase.text }}</a></h3>
         {% endfor %}
       </div>
     </div>
-    {% endif %}
   </div>
   {% if deck %}
   <form method="post" role="form" action="{% url 'membership_update' card.id %}">
@@ -169,4 +171,30 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+<div id="related-add-form" class="modal fade">
+  <div class="modal-dialog section" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+
+        <form method="POST" action="{% url 'relations_add' card.id %}" role="form">
+          {% csrf_token %}
+          <label>Select related phrases</label>
+          <select class="form-control m-b-1" name="related_cards">
+            <option value="">-- select phrase --</option>
+            {% for this_card in card.language.card_set.all %}
+            <option value="{{ this_card.id }}">{{ this_card.text }}</option>
+            {% endfor %}
+          </select>
+          <div class="form-group">
+            <input type="submit" class="btn btn-block btn-primary m-b-1"
+            name="submit" value="Save relations">
+          </div>
+
+        </form>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 {% endblock %}

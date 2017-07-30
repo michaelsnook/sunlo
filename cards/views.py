@@ -191,8 +191,19 @@ def translation_add(request, card_id):
     return redirect('card_detail', card_id)
 
 @login_required
-def deck_add(request):
+def relations_add(request, card_id):
+    related = request.POST.get('related_cards') if request.method == 'POST' else None
+    if related == None:
+        messages.error(request, 'No related phrase selected')
+    else:
+        card = get_object_or_404(Card, pk=card_id)
+        new_related_card = get_object_or_404(Card, pk=related)
+        card.see_also.add(new_related_card)
+        messages.success(request, 'Added new related phrases')
+    return redirect('card_detail', card_id)
 
+@login_required
+def deck_add(request):
     if request.method == 'POST':
         language_name = request.POST.get('language_name')
         language = get_object_or_404(Language, name__iexact=language_name)
