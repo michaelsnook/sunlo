@@ -38,7 +38,6 @@ def user_register(request):
             messages.error(request, 'Something went wrong, please try again')
     return render(request, 'cards/login.html', { 'signup': 'active' })
 
-
 def card_detail(request, card_id):
     card = get_object_or_404(Card, pk=card_id)
     deckmembership = {}
@@ -122,7 +121,6 @@ def browse_deck(request, deck_language_name):
 
     return render(request, 'cards/browse_deck.html', context)
 
-
 def language_detail(request, language_name):
     language = get_object_or_404(Language, name=language_name)
     deck = {}
@@ -138,7 +136,6 @@ def language_detail(request, language_name):
         'deck': deck,
     }
     return render(request, 'cards/language_detail.html', context)
-
 
 @login_required
 def app_home(request):
@@ -227,7 +224,6 @@ def deck_add(request):
     if request.method == 'GET':
         return render(request, 'cards/deck_add.html', context)
 
-
 @login_required
 def card_add(request):
     if request.method == 'POST':
@@ -290,7 +286,6 @@ def my_deck(request, deck_language_name):
         return render(request, 'cards/deck_not_learning_detail.html', context)
 
     return render(request, 'cards/deck_detail.html', context)
-
 
 @login_required
 def index(request):
