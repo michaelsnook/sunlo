@@ -190,15 +190,15 @@ def relations_add(request, card_id):
         messages.error(request, 'No related phrase selected')
     else:
         card = get_object_or_404(Card, pk=card_id)
-        new_relations = 0
+        starting_relations = card.see_also.all().count()
         bad_relations = 0
         for related_card_id in related:
             try:
                 new_related_card = Card.objects.get(pk=related_card_id)
                 card.see_also.add(new_related_card)
-                new_relations += 1
             except ObjectDoesNotExist:
                 bad_relations += 1
+        new_relations = card.see_also.all().count() - starting_relations or 0
         if new_relations:
             messages.success(request, "Added new %d related phrases" % new_relations)
         if bad_relations:
