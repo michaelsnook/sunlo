@@ -181,10 +181,6 @@ def translation_add(request, card_id):
         cardtranslation.save()
         messages.success(request, 'Added your new card translation')
 
-        context = {
-            'card': cardtranslation.card,
-        }
-
     return redirect('card_detail', card_id)
 
 @login_required
